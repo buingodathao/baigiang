@@ -717,6 +717,7 @@
         }
       }
     </style>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
   </head>
   <body>
     <!-- ================== LANDING PAGE ================== -->
@@ -748,7 +749,26 @@
     </div>
     <span class="card-tag">Giải tích &#x2022; 3D</span>
   </div>
-</div>   
+</div>  
+      <div class="lesson-page" id="lesson3">
+
+  <!-- ===== PHASE 1: HÌNH BÌNH HOA 2D ===== -->
+  <div id="vase-2d-wrap" style="width:100%;max-width:900px;margin:auto;">
+    <div id="ggb-vase-2d" style="width:100%;height:420px;"></div>
+
+    <div style="text-align:center;margin-top:12px;">
+      <button onclick="L3.showVolume()" class="primary-btn">
+        ▶️ Chuyển sang mô phỏng thể tích
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 2: THỂ TÍCH 3D ===== -->
+  <div id="vase-3d-wrap" style="display:none;">
+    <div id="container3d-l3" style="width:100%;height:520px;"></div>
+  </div>
+
+</div>
     </div>
 
     <button class="back-btn" id="back-btn" onclick="goHome()">
@@ -1011,7 +1031,111 @@
         </div>
       </div>
     </div>
+/* =====================================================================
+   LESSON 3: BÌNH HOA (2D → 3D)
+   ===================================================================== */
+var L3 = {
+  initialized: false,
+  ggbLoaded: false,
 
+  scene: null,
+  camera: null,
+  renderer: null,
+  controls: null,
+
+  init: function () {
+    this.loadGGB();
+    this.initialized = true;
+  },
+
+  /* ===== PHASE 1: LOAD GGB ===== */
+  loadGGB: function () {
+    if (this.ggbLoaded) return;
+
+    const app = new GGBApplet(
+      {
+        appName: "classic",
+        width: "100%",
+        height: 420,
+        showToolBar: false,
+        showAlgebraInput: false,
+        showMenuBar: false,
+        filename: "MoPhongBinhHoa2D.ggb", // ⚠️ tên file của bạn
+      },
+      true
+    );
+
+    app.inject("ggb-vase-2d");
+    this.ggbLoaded = true;
+  },
+
+  /* ===== CHUYỂN SANG 3D ===== */
+  showVolume: function () {
+    document.getElementById("vase-2d-wrap").style.display = "none";
+    document.getElementById("vase-3d-wrap").style.display = "block";
+
+    if (!this.scene) this.init3D();
+  },
+
+  /* ===== PHASE 2: THREE.JS ===== */
+  init3D: function () {
+    const container = document.getElementById("container3d-l3");
+    if (!container) return;
+
+    this.scene = new THREE.Scene();
+
+    this.camera = new THREE.PerspectiveCamera(
+      50,
+      container.clientWidth / container.clientHeight,
+      0.01,
+      200
+    );
+    this.camera.position.set(6, 4, 6);
+
+    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer.setSize(container.clientWidth, container.clientHeight);
+    container.innerHTML = "";
+    container.appendChild(this.renderer.domElement);
+
+    this.controls = new THREE.OrbitControls(
+      this.camera,
+      this.renderer.domElement
+    );
+    this.controls.enableDamping = true;
+
+    // 🔥 bình hoa demo (sau này ta nâng cấp theo hàm)
+    const geo = new THREE.CylinderGeometry(1.2, 0.4, 4, 80);
+    const mat = new THREE.MeshPhongMaterial({
+      color: 0xcc88ff,
+      transparent: true,
+      opacity: 0.65,
+    });
+    const vase = new THREE.Mesh(geo, mat);
+    this.scene.add(vase);
+
+    this.scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+
+    const self = this;
+    function animate() {
+      requestAnimationFrame(animate);
+      self.controls.update();
+      self.renderer.render(self.scene, self.camera);
+    }
+    animate();
+  },
+
+  onResize: function () {
+    if (!this.renderer) return;
+    const container = document.getElementById("container3d-l3");
+    this.camera.aspect =
+      container.clientWidth / container.clientHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(
+      container.clientWidth,
+      container.clientHeight
+    );
+  },
+};
     <!-- ================== SCRIPTS ================== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -1129,33 +1253,36 @@
        ===================================================================== */
       var currentLesson = 0;
 
-      function openLesson(num) {
-        document.getElementById("landing-page").style.display = "none";
-        document.getElementById("back-btn").style.display = "block";
-        if (num === 1) {
-          document.getElementById("lesson1").classList.add("active");
-          document.getElementById("lesson2").classList.remove("active");
-          if (!L1.initialized) {
-            L1.init();
-          } else {
-            setTimeout(function () {
-              L1.onResize();
-            }, 50);
-          }
-        } else {
-          document.getElementById("lesson2").classList.add("active");
-          document.getElementById("lesson1").classList.remove("active");
-          if (!L2.initialized) {
-            L2.init();
-          } else {
-            setTimeout(function () {
-              L2.draw();
-            }, 50);
-          }
-        }
-        currentLesson = num;
-      }
+     function openLesson(num) {
+  // Ẩn tất cả bài
+  document.querySelectorAll(".lesson-page").forEach(el => {
+    el.style.display = "none";
+  });
 
+  // Hiện bài được chọn
+  const lesson = document.getElementById("lesson" + num);
+  if (lesson) lesson.style.display = "block";
+
+  // ⭐ Load GeoGebra cho bài 3
+  if (num === 3 && !window.ggb3Loaded) {
+    window.ggb3Loaded = true;
+
+    const params3 = {
+      appName: "classic",
+      width: "100%",
+      height: 500,
+      showToolBar: true,
+      showAlgebraInput: false,
+      showMenuBar: false,
+      enableShiftDragZoom: true,
+      scaleContainerClass: "ggb-container",
+      filename: "MoPhongBinhHoa2D.ggb"
+    };
+
+    const applet3 = new GGBApplet(params3, true);
+    applet3.inject("ggb-element-lesson3");
+  }
+}
       function goHome() {
         document.getElementById("landing-page").style.display = "flex";
         document.getElementById("back-btn").style.display = "none";
