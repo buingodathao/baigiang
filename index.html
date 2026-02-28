@@ -1156,30 +1156,20 @@
        ===================================================================== */
     var currentLesson = 0;
 
-function openLesson(num) {
-  // Ẩn landing
-  document.getElementById("landing-page").style.display = "none";
-
-  // hiện nút back
-  document.getElementById("back-btn").style.display = "block";
-
-  // ẩn mọi lesson
+function openLesson(n) {
+  // ẩn tất cả
   document.querySelectorAll(".lesson-page").forEach(el => {
     el.style.display = "none";
   });
 
-  // hiện lesson được chọn
-  const lesson = document.getElementById("lesson" + num);
-  if (lesson) lesson.style.display = "block";
+  // hiện bài được chọn
+  document.getElementById("lesson" + n).style.display = "block";
 
-  currentLesson = num;
-
-  // ⭐ chỉ init bài 3 khi cần
-  if (num === 3 && typeof L3 !== "undefined") {
-    setTimeout(() => L3.init(), 200);
+  // ⭐ chỉ init L3 đúng 1 lần
+  if (n === 3 && window.L3 && !window.L3.initialized) {
+    setTimeout(() => window.L3.init(), 100);
   }
-}
-function goHome() {
+}function goHome() {
   document.getElementById("landing-page").style.display = "block";
   document.getElementById("back-btn").style.display = "none";
 
