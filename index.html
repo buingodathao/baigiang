@@ -2544,3 +2544,63 @@
     </script>
   </body>
 </html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Mô phỏng Toán học - GitHub Pages</title>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; background-color: #f4f4f9; }
+        #ggb-element { margin: 20px auto; border: 2px solid #333; border-radius: 8px; overflow: hidden; }
+        .info { max-width: 800px; margin: 0 auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <div class="info">
+        <h2>Ứng dụng Tích phân: Thể tích khối tròn xoay 3D</h2>
+        <p><i>Mô phỏng dành cho Sáng kiến kinh nghiệm - Đơn vị: Trường THPT Chuyên</i></p>
+        <p>Hàm số minh họa: <b>f(x) = 0.5x² + 1</b> trên đoạn [a, b]</p>
+    </div>
+
+    <div id="ggb-element"></div>
+
+    <script>  
+        var params = {
+            "appName": "classic", 
+            "width": 1000, 
+            "height": 600, 
+            "showToolBar": true, 
+            "showAlgebraInput": true, 
+            "showMenuBar": true,
+            "enableRightClick": true,
+            // Đoạn script dưới đây sẽ tự động tạo hình khi web vừa load xong
+            "ggbBase64": "", // Bạn có thể để trống hoặc dán mã Base64 của file .ggb vào đây
+            "appletOnLoad": function(api) {
+                // Tạo các đối tượng cơ bản bằng mã lệnh GeoGebra
+                api.evalCommand("f(x) = 0.5*x^2 + 1");
+                api.evalCommand("a = -2");
+                api.evalCommand("b = 2");
+                api.evalCommand("SetColor(f, 'Red')");
+                
+                // Tạo khối tròn xoay quanh trục Ox
+                api.evalCommand("Solid = Surface(u, f(u) cos(v), f(u) sin(v), u, a, b, v, 0, 2pi)");
+                api.evalCommand("SetColor(Solid, 'Blue')");
+                api.evalCommand("SetCaption(Solid, 'Khối tròn xoay')");
+                
+                // Thiết lập góc nhìn 3D
+                api.setPerspective("G"); // Hiển thị cả đại số và đồ họa 3D
+            }
+        };
+
+        var applet = new GGBApplet(params, true);
+        window.onload = function() { applet.inject('ggb-element'); }
+    </script>
+
+    <div class="info">
+        <p><b>Hướng dẫn:</b> Học sinh có thể thay đổi hàm f(x) hoặc các cận a, b ở cột bên trái để quan sát sự thay đổi hình dáng vật thể trong không gian 3D.</p>
+    </div>
+
+</body>
+</html>
