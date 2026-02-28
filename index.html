@@ -1157,45 +1157,26 @@
     var currentLesson = 0;
 
 function openLesson(num) {
-  currentLesson = num;
-
-  // ✅ 1. Ẩn landing page
+  // Ẩn landing
   document.getElementById("landing-page").style.display = "none";
 
-  // ✅ 2. Hiện nút back
+  // hiện nút back
   document.getElementById("back-btn").style.display = "block";
 
-  // ✅ 3. Ẩn tất cả lesson
+  // ẩn mọi lesson
   document.querySelectorAll(".lesson-page").forEach(el => {
     el.style.display = "none";
   });
 
-  // ✅ 4. Hiện lesson được chọn
+  // hiện lesson được chọn
   const lesson = document.getElementById("lesson" + num);
   if (lesson) lesson.style.display = "block";
 
-  // =============================
-  // ⭐ LOAD BÀI 3 (2D vase)
-  // =============================
-  if (num === 3 && !window.ggb3Loaded) {
-    window.ggb3Loaded = true;
+  currentLesson = num;
 
-    setTimeout(() => {
-      const params3 = {
-        appName: "classic",
-        width: "100%",
-        height: 420,
-        showToolBar: true,
-        showAlgebraInput: false,
-        showMenuBar: false,
-        enableShiftDragZoom: true,
-        scaleContainerClass: "ggb-container",
-        filename: "MoPhongBinhHoa2D.ggb"
-      };
-
-      const applet3 = new GGBApplet(params3, true);
-      applet3.inject("ggb-vase-2d");
-    }, 200); // 🔥 cực quan trọng
+  // ⭐ chỉ init bài 3 khi cần
+  if (num === 3 && typeof L3 !== "undefined") {
+    setTimeout(() => L3.init(), 200);
   }
 }
 function goHome() {
@@ -2584,48 +2565,40 @@ function goHome() {
    LESSON 3: BÌNH HOA (2D → 3D)
    ===================================================================== */
 var L3 = {
+  app2d: null,
+  app3d: null,
+  loaded: false,
+
+  init: function () {
+    if (this.loaded) return;
+
+    const container = document.getElementById("ggb-vase-2d");
+    if (!container) return;
+
+    this.loaded = true;
+
+    setTimeout(() => {
+      this.app2d = new GGBApplet({
+        appName: "classic",
+        width: "100%",
+        height: 420,
+        showToolBar: false,
+        showMenuBar: false,
+        showAlgebraInput: false,
+        enableShiftDragZoom: true,
+        scaleContainerClass: "ggb-container",
+        filename: "MoPhongBinhHoa2D.ggb"
+      }, true);
+
+      this.app2d.inject("ggb-vase-2d");
+    }, 200);
+  },
+
   showVolume: function () {
     document.getElementById("vase-2d-wrap").style.display = "none";
     document.getElementById("vase-3d-wrap").style.display = "block";
 
-    if (!window.l3ThreeLoaded) {
-      window.l3ThreeLoaded = true;
-  init: function () {
-  if (this.loaded) return;
-
-  const container = document.getElementById("ggb-vase-2d");
-  if (!container) return;
-
-  this.loaded = true;
-
-  setTimeout(() => {
-    this.app2d = new GGBApplet({
-      appName: "classic",
-      width: "100%",
-      height: 420,
-      showToolBar: false,
-      showMenuBar: false,
-      showAlgebraInput: false,
-      enableShiftDragZoom: true,
-      scaleContainerClass: "ggb-container",
-      filename: "MoPhongBinhHoa2D.ggb"
-    }, true);
-
-    this.app2d.inject("ggb-vase-2d");
-  }, 200);
-}
-
-  showVolume: function () {
-  // ẩn 2D
-  document.getElementById("vase-2d-wrap").style.display = "none";
-
-  // hiện 3D
-  const wrap3d = document.getElementById("vase-3d-wrap");
-  wrap3d.style.display = "block";
-
-  // load 3D một lần
-  if (!this.app3d) {
-    setTimeout(() => {
+    if (!this.app3d) {
       this.app3d = new GGBApplet({
         appName: "3d",
         width: "100%",
@@ -2637,11 +2610,12 @@ var L3 = {
         filename: "TheTichBinhHoa3D1.ggb"
       }, true);
 
-      this.app3d.inject("container3d-l3");
-    }, 200); // 🔥 cực quan trọng cho mobile
+      setTimeout(() => {
+        this.app3d.inject("container3d-l3");
+      }, 200);
+    }
   }
-}
-      // Window resize
+};      // Window resize
       window.addEventListener("resize", function () {
         if (currentLesson === 1) L1.onResize();
         else if (currentLesson === 2 && L2.initialized) L2.draw();
