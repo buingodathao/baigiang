@@ -1159,36 +1159,53 @@
 function openLesson(num) {
   currentLesson = num;
 
-  // ❶ Ẩn landing page
-  const landing = document.getElementById("landing-page");
-  if (landing) landing.style.display = "none";
+  // ✅ 1. Ẩn landing page
+  document.getElementById("landing-page").style.display = "none";
 
-  // ❷ Hiện nút back
-  const backBtn = document.getElementById("back-btn");
-  if (backBtn) backBtn.style.display = "block";
+  // ✅ 2. Hiện nút back
+  document.getElementById("back-btn").style.display = "block";
 
-  // ❸ Ẩn tất cả lesson
+  // ✅ 3. Ẩn tất cả lesson
   document.querySelectorAll(".lesson-page").forEach(el => {
     el.style.display = "none";
   });
 
-  // ❹ Hiện lesson được chọn
+  // ✅ 4. Hiện lesson được chọn
   const lesson = document.getElementById("lesson" + num);
   if (lesson) lesson.style.display = "block";
 
-  // ❺ Load GeoGebra bài 3 (chỉ load 1 lần)
+  // =============================
+  // ⭐ LOAD BÀI 3 (2D vase)
+  // =============================
   if (num === 3 && !window.ggb3Loaded) {
     window.ggb3Loaded = true;
-    L3.init();
-  }
-}      function goHome() {
-        document.getElementById("landing-page").style.display = "flex";
-        document.getElementById("back-btn").style.display = "none";
-        document.getElementById("lesson1").classList.remove("active");
-        document.getElementById("lesson2").classList.remove("active");
-        currentLesson = 0;
-      }
 
+    setTimeout(() => {
+      const params3 = {
+        appName: "classic",
+        width: "100%",
+        height: 420,
+        showToolBar: true,
+        showAlgebraInput: false,
+        showMenuBar: false,
+        enableShiftDragZoom: true,
+        scaleContainerClass: "ggb-container",
+        filename: "MoPhongBinhHoa2D.ggb"
+      };
+
+      const applet3 = new GGBApplet(params3, true);
+      applet3.inject("ggb-vase-2d");
+    }, 200); // 🔥 cực quan trọng
+  }
+}
+function goHome() {
+  document.getElementById("landing-page").style.display = "block";
+  document.getElementById("back-btn").style.display = "none";
+
+  document.querySelectorAll(".lesson-page").forEach(el => {
+    el.style.display = "none";
+  });
+}
       /* =====================================================================
        LESSON 1: VOLUME OF REVOLUTION
        ===================================================================== */
@@ -2567,15 +2584,21 @@ function openLesson(num) {
    LESSON 3: BÌNH HOA (2D → 3D)
    ===================================================================== */
 var L3 = {
-  app2d: null,
-  app3d: null,
-  loaded: false,
+  showVolume: function () {
+    document.getElementById("vase-2d-wrap").style.display = "none";
+    document.getElementById("vase-3d-wrap").style.display = "block";
 
+    if (!window.l3ThreeLoaded) {
+      window.l3ThreeLoaded = true;
   init: function () {
-    if (this.loaded) return;
-    this.loaded = true;
+  if (this.loaded) return;
 
-    // ===== 2D =====
+  const container = document.getElementById("ggb-vase-2d");
+  if (!container) return;
+
+  this.loaded = true;
+
+  setTimeout(() => {
     this.app2d = new GGBApplet({
       appName: "classic",
       width: "100%",
@@ -2589,17 +2612,20 @@ var L3 = {
     }, true);
 
     this.app2d.inject("ggb-vase-2d");
-  },
+  }, 200);
+}
 
   showVolume: function () {
-    // ẩn 2D
-    document.getElementById("vase-2d-wrap").style.display = "none";
+  // ẩn 2D
+  document.getElementById("vase-2d-wrap").style.display = "none";
 
-    // hiện 3D
-    document.getElementById("vase-3d-wrap").style.display = "block";
+  // hiện 3D
+  const wrap3d = document.getElementById("vase-3d-wrap");
+  wrap3d.style.display = "block";
 
-    // chỉ load 1 lần
-    if (!this.app3d) {
+  // load 3D một lần
+  if (!this.app3d) {
+    setTimeout(() => {
       this.app3d = new GGBApplet({
         appName: "3d",
         width: "100%",
@@ -2612,9 +2638,9 @@ var L3 = {
       }, true);
 
       this.app3d.inject("container3d-l3");
-    }
+    }, 200); // 🔥 cực quan trọng cho mobile
   }
-};
+}
       // Window resize
       window.addEventListener("resize", function () {
         if (currentLesson === 1) L1.onResize();
