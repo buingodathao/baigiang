@@ -2567,48 +2567,66 @@
     <div id="ggb-element"></div>
 
     <script>  
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng Công nghệ số - Tính Thể Tích Bình Hoa</title>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #1a73e8; }
+        .menu { margin-bottom: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #1a73e8; color: white; margin: 5px; transition: 0.3s; }
+        button:hover { background-color: #1557b0; }
+        button.active { background-color: #34a853; }
+        #ggb-element { margin: auto; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>MÔ PHỎNG ỨNG DỤNG TÍCH PHÂN: TÍNH THỂ TÍCH BÌNH HOA</h2>
+    <p><i>Sáng kiến kinh nghiệm - Ứng dụng công nghệ số trong dạy học Toán chuyên</i></p>
+
+    <div class="menu">
+        <button id="btn2D" onclick="loadApplet('TheTichBinhHoa2D.ggb', 'btn2D')">Mô phỏng 2D (Thiết diện)</button>
+        <button id="btn3D" onclick="loadApplet('TheTichBinhHoa3D1.ggb', 'btn3D')" class="active">Mô phỏng 3D (Khối tròn xoay)</button>
+    </div>
+
+    <div id="ggb-element"></div>
+</div>
+
+<script>
+    function loadApplet(filename, btnId) {
+        // Cập nhật trạng thái nút bấm
+        document.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(btnId).classList.add('active');
+
+        // Cấu hình tham số cho GeoGebra
         var params = {
-            "appName": "classic", 
-            "width": 1000, 
-            "height": 600, 
-            "showToolBar": true, 
-            "showAlgebraInput": true, 
-            "showMenuBar": true,
-            "enableRightClick": true,
-            // Đoạn script dưới đây sẽ tự động tạo hình khi web vừa load xong
-            "ggbBase64": "", // Bạn có thể để trống hoặc dán mã Base64 của file .ggb vào đây
-            "appletOnLoad": function(api) {
-                // Tạo các đối tượng cơ bản bằng mã lệnh GeoGebra
-                api.evalCommand("f(x) = 0.5*x^2 + 1");
-                api.evalCommand("a = -2");
-                api.evalCommand("b = 2");
-                api.evalCommand("SetColor(f, 'Red')");
-                
-                // Tạo khối tròn xoay quanh trục Ox
-                api.evalCommand("Solid = Surface(u, f(u) cos(v), f(u) sin(v), u, a, b, v, 0, 2pi)");
-                api.evalCommand("SetColor(Solid, 'Blue')");
-                api.evalCommand("SetCaption(Solid, 'Khối tròn xoay')");
-                
-                // Thiết lập góc nhìn 3D
-                api.setPerspective("G"); // Hiển thị cả đại số và đồ họa 3D
-            }
+            "appName": "classic",
+            "width": 800,
+            "height": 600,
+            "showToolBar": false,
+            "showAlgebraInput": false,
+            "showMenuBar": false,
+            "enableRightClick": false,
+            "filename": filename  // Gọi file .ggb tương ứng
         };
 
         var applet = new GGBApplet(params, true);
-        window.onload = function() { applet.inject('ggb-element'); }
-    </script>
+        document.getElementById('ggb-element').innerHTML = ""; // Xóa applet cũ trước khi nạp mới
+        applet.inject('ggb-element');
+    }
 
-    <div class="info">
-        <p><b>Hướng dẫn:</b> Học sinh có thể thay đổi hàm f(x) hoặc các cận a, b ở cột bên trái để quan sát sự thay đổi hình dáng vật thể trong không gian 3D.</p>
-    </div>
+    // Tự động load file 3D khi vừa mở trang
+    window.onload = function() {
+        loadApplet('TheTichBinhHoa3D1.ggb', 'btn3D');
+    };
+</script>
 
 </body>
 </html>
-var params = {
-    "appName": "classic", 
-    "width": 800, 
-    "height": 600, 
-    "showToolBar": true, 
-    // ... các thông số khác ...
-    "filename": "ten_file_cua_ban.ggb" // <--- CHỈNH TẠI ĐÂY
-};
