@@ -12,7 +12,6 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    
     <style>
       * {
         margin: 0;
@@ -24,6 +23,136 @@
         background: #0a0a1a;
         color: #e0e0e0;
         min-height: 100vh;
+      }
+
+      /* ============ LANDING PAGE ============ */
+      #landing-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          #0a0a1a 0%,
+          #1a1a3e 50%,
+          #0a0a1a 100%
+        );
+        padding: 20px;
+      }
+      #landing-page .hero-title {
+        font-size: 42px;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #4fc3f7, #ab47bc, #ff7043);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      #landing-page .hero-sub {
+        font-size: 18px;
+        color: #aaa;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .lesson-cards {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 900px;
+      }
+      .lesson-card {
+        background: linear-gradient(145deg, #16213e, #1a2744);
+        border: 2px solid #0f3460;
+        border-radius: 16px;
+        padding: 30px 28px;
+        width: 380px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .lesson-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        border-radius: 16px 16px 0 0;
+      }
+      .lesson-card:nth-child(1)::before {
+        background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+      }
+      .lesson-card:nth-child(2)::before {
+        background: linear-gradient(90deg, #ab47bc, #e040fb);
+      }
+      .lesson-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 40px rgba(79, 195, 247, 0.15);
+        border-color: #4fc3f7;
+      }
+      .lesson-card .card-icon {
+        font-size: 48px;
+        margin-bottom: 14px;
+      }
+      .lesson-card .card-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #fff;
+      }
+      .lesson-card .card-desc {
+        font-size: 14px;
+        color: #aab;
+        line-height: 1.6;
+      }
+      .lesson-card .card-tag {
+        display: inline-block;
+        margin-top: 14px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .lesson-card:nth-child(1) .card-tag {
+        background: rgba(79, 195, 247, 0.15);
+        color: #4fc3f7;
+      }
+      .lesson-card:nth-child(2) .card-tag {
+        background: rgba(171, 71, 188, 0.15);
+        color: #ce93d8;
+      }
+
+      .back-btn {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1000;
+        padding: 8px 16px;
+        background: rgba(15, 52, 96, 0.9);
+        border: 1px solid #4fc3f7;
+        color: #4fc3f7;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        backdrop-filter: blur(8px);
+        transition: all 0.2s;
+        display: none;
+      }
+      .back-btn:hover {
+        background: #4fc3f7;
+        color: #0a0a1a;
+      }
+
+      .lesson-page {
+        display: none;
+      }
+      .lesson-page.active {
+        display: block;
       }
 
       /* ============ LESSON 1 ============ */
@@ -620,17 +749,6 @@
     <span class="card-tag">Giải tích &#x2022; 3D</span>
   </div>
 </div>
-      <!-- BÀI 3 -->
-<div class="lesson-card" onclick="openLesson(3)">
-  <div class="card-icon">🌸</div>
-  <div class="card-title">
-    Bài 3: Bình hoa tròn xoay (Chuyên toán)
-  </div>
-  <div class="card-desc">
-    Khảo sát mô hình bình hoa bằng tích phân và mô phỏng GeoGebra.
-  </div>
-  <span class="card-tag">Giải tích • Nâng cao</span>
-</div>
     </div>
 
     <button class="back-btn" id="back-btn" onclick="goHome()">
@@ -893,16 +1011,7 @@
         </div>
       </div>
     </div>
-<!-- ================== LESSON 3 ================== -->
-<div id="lesson3" class="lesson-page">
-  <div class="l3-wrapper">
-    <iframe
-      src="LINK_EMBED_GGB_CUA_BAN"
-      class="l3-frame"
-      allowfullscreen>
-    </iframe>
-  </div>
-</div>
+
     <!-- ================== SCRIPTS ================== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -1021,34 +1130,32 @@
       var currentLesson = 0;
 
       function openLesson(num) {
-  document.getElementById("landing-page").style.display = "none";
-  document.getElementById("back-btn").style.display = "block";
+        document.getElementById("landing-page").style.display = "none";
+        document.getElementById("back-btn").style.display = "block";
+        if (num === 1) {
+          document.getElementById("lesson1").classList.add("active");
+          document.getElementById("lesson2").classList.remove("active");
+          if (!L1.initialized) {
+            L1.init();
+          } else {
+            setTimeout(function () {
+              L1.onResize();
+            }, 50);
+          }
+        } else {
+          document.getElementById("lesson2").classList.add("active");
+          document.getElementById("lesson1").classList.remove("active");
+          if (!L2.initialized) {
+            L2.init();
+          } else {
+            setTimeout(function () {
+              L2.draw();
+            }, 50);
+          }
+        }
+        currentLesson = num;
+      }
 
-  // reset tất cả
-  document.getElementById("lesson1").classList.remove("active");
-  document.getElementById("lesson2").classList.remove("active");
-  if (document.getElementById("lesson3")) {
-    document.getElementById("lesson3").classList.remove("active");
-  }
-
-  if (num === 1) {
-    document.getElementById("lesson1").classList.add("active");
-    if (!L1.initialized) L1.init();
-    else setTimeout(() => L1.onResize(), 50);
-  }
-
-  else if (num === 2) {
-    document.getElementById("lesson2").classList.add("active");
-    if (!L2.initialized) L2.init();
-    else setTimeout(() => L2.draw(), 50);
-  }
-
-  else if (num === 3) {
-    document.getElementById("lesson3").classList.add("active");
-  }
-
-  currentLesson = num;
-}
       function goHome() {
         document.getElementById("landing-page").style.display = "flex";
         document.getElementById("back-btn").style.display = "none";
