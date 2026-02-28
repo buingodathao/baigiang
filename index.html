@@ -156,11 +156,11 @@
       }
 
       /* ============ LESSON 1 ============ */
-      #lesson1 {
+      #lesson2 {
         height: 100vh;
         overflow: hidden;
       }
-      #lesson1 .container {
+      #lesson2 .container {
         display: flex;
         height: 100vh;
       }
@@ -331,15 +331,15 @@
       }
 
       /* ============ LESSON 2 ============ */
-      #lesson2 {
+      #lesson1 {
         height: 100vh;
         overflow: hidden;
       }
-      #lesson2 .l2-container {
+      #lesson1 .l2-container {
         display: flex;
         height: 100vh;
       }
-      #lesson2 .l2-sidebar {
+      #lesson1 .l2-sidebar {
         width: 320px;
         min-width: 320px;
         padding: 14px;
@@ -350,36 +350,36 @@
         flex-direction: column;
         gap: 8px;
       }
-      #lesson2 .l2-sidebar h2 {
+      #lesson1 .l2-sidebar h2 {
         text-align: center;
         color: #ce93d8;
         font-size: 17px;
         margin-bottom: 4px;
       }
-      #lesson2 .l2-main {
+      #lesson1 .l2-main {
         flex: 1;
         display: flex;
         flex-direction: column;
         background: #fff;
         position: relative;
       }
-      #lesson2 canvas {
+      #lesson1 canvas {
         width: 100%;
         height: 100%;
       }
-      #lesson2 .l2-func-input {
+      #lesson1 .l2-func-input {
         display: flex;
         gap: 6px;
         align-items: center;
         margin: 2px 0;
       }
-      #lesson2 .l2-func-input label {
+      #lesson1 .l2-func-input label {
         font-size: 13px;
         white-space: nowrap;
         color: #ce93d8;
         font-weight: 700;
       }
-      #lesson2 .l2-func-input input {
+      #lesson1 .l2-func-input input {
         flex: 1;
         padding: 5px 8px;
         border-radius: 4px;
@@ -389,42 +389,42 @@
         font-size: 13px;
         font-family: monospace;
       }
-      #lesson2 .l2-slider {
+      #lesson1 .l2-slider {
         margin: 3px 0;
       }
-      #lesson2 .l2-slider label {
+      #lesson1 .l2-slider label {
         display: flex;
         align-items: center;
         font-size: 13px;
         gap: 6px;
       }
-      #lesson2 .l2-slider input[type="range"] {
+      #lesson1 .l2-slider input[type="range"] {
         flex: 1;
         height: 6px;
         cursor: pointer;
         accent-color: #ce93d8;
       }
-      #lesson2 .l2-val {
+      #lesson1 .l2-val {
         font-weight: bold;
         color: #ce93d8;
         min-width: 40px;
         text-align: right;
       }
-      #lesson2 .l2-info {
+      #lesson1 .l2-info {
         background: #0f3460;
         padding: 10px;
         border-radius: 8px;
         margin: 4px 0;
       }
-      #lesson2 .l2-info p {
+      #lesson1 .l2-info p {
         margin: 3px 0;
         font-size: 13px;
         line-height: 1.5;
       }
-      #lesson2 .l2-info b {
+      #lesson1 .l2-info b {
         color: #ce93d8;
       }
-      #lesson2 .l2-formula {
+      #lesson1 .l2-formula {
         text-align: center;
         font-size: 15px;
         color: #e8e8e8;
@@ -433,7 +433,7 @@
         padding: 8px;
         border-radius: 6px;
       }
-      #lesson2 .l2-note {
+      #lesson1 .l2-note {
         background: #f3e5f5;
         color: #333;
         padding: 8px;
@@ -441,7 +441,7 @@
         font-size: 12px;
         line-height: 1.5;
       }
-      #lesson2 .l2-btn {
+      #lesson1 .l2-btn {
         padding: 5px 10px;
         border: none;
         border-radius: 4px;
@@ -451,13 +451,13 @@
         background: #6a1b9a;
         transition: background 0.2s;
       }
-      #lesson2 .l2-btn:hover {
+      #lesson1 .l2-btn:hover {
         background: #8e24aa;
       }
-      #lesson2 .l2-btn.active {
+      #lesson1 .l2-btn.active {
         background: #e74c3c;
       }
-      #lesson2 .l2-rect-list {
+      #lesson1 .l2-rect-list {
         background: #0a1628;
         border: 1px solid #333;
         border-radius: 6px;
@@ -482,19 +482,19 @@
           overflow: auto;
           font-size: 15px;
         }
-        #lesson1,
-        #lesson2 {
+        #lesson2,
+        #lesson1 {
           height: auto;
           overflow: auto;
         }
-        #lesson1 .container,
-        #lesson2 .l2-container {
+        #lesson2 .container,
+        #lesson1 .l2-container {
           flex-direction: column;
           height: auto;
           min-height: 100vh;
         }
         .sidebar,
-        #lesson2 .l2-sidebar {
+        #lesson1 .l2-sidebar {
           width: 100%;
           min-width: unset;
           border-right: none;
@@ -515,7 +515,7 @@
           border-left: none;
           border-top: 2px solid #0f3460;
         }
-        #lesson2 .l2-main {
+        #lesson1 .l2-main {
           min-height: 60vh;
         }
         .lesson-cards {
@@ -573,49 +573,49 @@
 
         /* Sidebars */
         .sidebar,
-        #lesson2 .l2-sidebar {
+        #lesson1 .l2-sidebar {
           padding: 10px;
           gap: 8px;
         }
         .sidebar h2,
-        #lesson2 .l2-sidebar h2 {
+        #lesson1 .l2-sidebar h2 {
           font-size: 18px;
           margin-bottom: 6px;
         }
 
         /* Function inputs */
         .func-input input,
-        #lesson2 .l2-func-input input {
+        #lesson1 .l2-func-input input {
           font-size: 15px;
           padding: 8px 10px;
           min-height: 40px;
         }
         .func-input label,
-        #lesson2 .l2-func-input label {
+        #lesson1 .l2-func-input label {
           font-size: 15px;
         }
 
         /* Sliders - bigger touch target */
         .slider-group label,
-        #lesson2 .l2-slider label {
+        #lesson1 .l2-slider label {
           font-size: 14px;
           gap: 8px;
           min-height: 36px;
         }
         .slider-group input[type="range"],
-        #lesson2 .l2-slider input[type="range"] {
+        #lesson1 .l2-slider input[type="range"] {
           height: 10px;
           min-height: 36px;
         }
         .val,
-        #lesson2 .l2-val {
+        #lesson1 .l2-val {
           font-size: 15px;
           min-width: 48px;
         }
 
         /* Buttons - bigger touch target */
         .btn,
-        #lesson2 .l2-btn {
+        #lesson1 .l2-btn {
           padding: 10px 14px;
           font-size: 14px;
           min-height: 40px;
@@ -628,16 +628,16 @@
 
         /* Info boxes */
         .info-box,
-        #lesson2 .l2-info {
+        #lesson1 .l2-info {
           padding: 12px;
         }
         .info-box p,
-        #lesson2 .l2-info p {
+        #lesson1 .l2-info p {
           font-size: 14px;
           margin: 4px 0;
         }
         .formula,
-        #lesson2 .l2-formula {
+        #lesson1 .l2-formula {
           font-size: 16px;
           padding: 10px;
         }
@@ -650,7 +650,7 @@
 
         /* Note */
         .note,
-        #lesson2 .l2-note {
+        #lesson1 .l2-note {
           font-size: 13px;
           padding: 10px;
         }
@@ -669,12 +669,12 @@
         }
 
         /* L2 canvas */
-        #lesson2 .l2-main {
+        #lesson1 .l2-main {
           min-height: 55vh;
         }
 
         /* Rect list */
-        #lesson2 .l2-rect-list {
+        #lesson1 .l2-rect-list {
           font-size: 12px;
           padding: 10px;
           max-height: 80px;
@@ -693,17 +693,17 @@
           font-size: 20px;
         }
         .sidebar,
-        #lesson2 .l2-sidebar {
+        #lesson1 .l2-sidebar {
           padding: 8px;
         }
         .func-input input,
-        #lesson2 .l2-func-input input {
+        #lesson1 .l2-func-input input {
           font-size: 14px;
           padding: 6px 8px;
           min-height: 36px;
         }
         .btn,
-        #lesson2 .l2-btn {
+        #lesson1 .l2-btn {
           padding: 8px 10px;
           font-size: 13px;
           min-height: 36px;
@@ -726,22 +726,21 @@
       <div class="lesson-cards">
         <div class="lesson-card" onclick="openLesson(1)">
           <div class="card-icon">&#x1F504;</div>
-          <div class="card-title">Bài 1: Thể Tích Vật Thể Tròn Xoay</div>
+          <div class="card-title">Bài 1: Diện tích của hình phẳng</div>
           <div class="card-desc">
-            Khám phá phương pháp đĩa để tính thể tích vật thể tròn xoay. Trực
-            quan hóa 3D với các lát cắt hình trụ, điều chỉnh hàm số và tham số
-            để hiểu sâu hơn.
+            Trực quan hóa tích phân xác định bằng tổng Riemann. Nhập bất kỳ hàm
+            số nào, điều chỉnh cận và số hình chữ nhật để thấy quá trình hội tụ.
           </div>
           <span class="card-tag">Giải tích &#x2022; 3D</span>
         </div>
         <div class="lesson-card" onclick="openLesson(2)">
           <div class="card-icon">&#x1F4CA;</div>
           <div class="card-title">
-            Bài 2: Tích Phân Xác Định &amp; Tổng Riemann
-          </div>
+            Bài 2: Thể tích của khối tròn xoay</div>
           <div class="card-desc">
-            Trực quan hóa tích phân xác định bằng tổng Riemann. Nhập bất kỳ hàm
-            số nào, điều chỉnh cận và số hình chữ nhật để thấy quá trình hội tụ.
+            Khám phá phương pháp đĩa để tính thể tích vật thể tròn xoay. Trực
+            quan hóa 3D với các lát cắt hình trụ, điều chỉnh hàm số và tham số
+            để hiểu sâu hơn.
           </div>
           <span class="card-tag">Giải tích &#x2022; 2D</span>
         </div>
@@ -752,8 +751,8 @@
       &#x2190; Quay lại
     </button>
 
-    <!-- ================== LESSON 1 ================== -->
-    <div id="lesson1" class="lesson-page">
+    <!-- ================== LESSON 2 ================== -->
+    <div id="lesson2" class="lesson-page">
       <div class="container">
         <div class="sidebar">
           <h2>&#x1F504; Thể Tích Tròn Xoay</h2>
@@ -879,8 +878,8 @@
       </div>
     </div>
 
-    <!-- ================== LESSON 2 ================== -->
-    <div id="lesson2" class="lesson-page">
+    <!-- ================== LESSON 1 ================== -->
+    <div id="lesson1" class="lesson-page">
       <div class="l2-container">
         <div class="l2-sidebar">
           <h2>&#x1F4CA; Tích Phân &amp; Tổng Riemann</h2>
