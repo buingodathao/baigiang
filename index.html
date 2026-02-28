@@ -12,6 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
+    
     <style>
       * {
         margin: 0;
@@ -749,6 +750,17 @@
     <span class="card-tag">Giải tích &#x2022; 3D</span>
   </div>
 </div>
+      <!-- BÀI 3 -->
+<div class="lesson-card" onclick="openLesson(3)">
+  <div class="card-icon">🌸</div>
+  <div class="card-title">
+    Bài 3: Bình hoa tròn xoay (Chuyên toán)
+  </div>
+  <div class="card-desc">
+    Khảo sát mô hình bình hoa bằng tích phân và mô phỏng GeoGebra.
+  </div>
+  <span class="card-tag">Giải tích • Nâng cao</span>
+</div>
     </div>
 
     <button class="back-btn" id="back-btn" onclick="goHome()">
@@ -1011,7 +1023,18 @@
         </div>
       </div>
     </div>
-
+<!-- ================== LESSON 3 ================== -->
+<div id="lesson3" class="lesson-page">
+  <div style="width:100%; height:100vh; background:#000;">
+    <iframe
+      src="https://www.geogebra.org/calculator/xdpnh5j8"
+      width="100%"
+      height="100%"
+      style="border:none;"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
     <!-- ================== SCRIPTS ================== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -1130,32 +1153,34 @@
       var currentLesson = 0;
 
       function openLesson(num) {
-        document.getElementById("landing-page").style.display = "none";
-        document.getElementById("back-btn").style.display = "block";
-        if (num === 1) {
-          document.getElementById("lesson1").classList.add("active");
-          document.getElementById("lesson2").classList.remove("active");
-          if (!L1.initialized) {
-            L1.init();
-          } else {
-            setTimeout(function () {
-              L1.onResize();
-            }, 50);
-          }
-        } else {
-          document.getElementById("lesson2").classList.add("active");
-          document.getElementById("lesson1").classList.remove("active");
-          if (!L2.initialized) {
-            L2.init();
-          } else {
-            setTimeout(function () {
-              L2.draw();
-            }, 50);
-          }
-        }
-        currentLesson = num;
-      }
+  document.getElementById("landing-page").style.display = "none";
+  document.getElementById("back-btn").style.display = "block";
 
+  // reset tất cả
+  document.getElementById("lesson1").classList.remove("active");
+  document.getElementById("lesson2").classList.remove("active");
+  if (document.getElementById("lesson3")) {
+    document.getElementById("lesson3").classList.remove("active");
+  }
+
+  if (num === 1) {
+    document.getElementById("lesson1").classList.add("active");
+    if (!L1.initialized) L1.init();
+    else setTimeout(() => L1.onResize(), 50);
+  }
+
+  else if (num === 2) {
+    document.getElementById("lesson2").classList.add("active");
+    if (!L2.initialized) L2.init();
+    else setTimeout(() => L2.draw(), 50);
+  }
+
+  else if (num === 3) {
+    document.getElementById("lesson3").classList.add("active");
+  }
+
+  currentLesson = num;
+}
       function goHome() {
         document.getElementById("landing-page").style.display = "flex";
         document.getElementById("back-btn").style.display = "none";
