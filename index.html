@@ -2567,108 +2567,54 @@ function openLesson(num) {
    LESSON 3: BÌNH HOA (2D → 3D)
    ===================================================================== */
 var L3 = {
-  initialized: false,
-  ggbLoaded: false,
-
-  scene: null,
-  camera: null,
-  renderer: null,
-  controls: null,
+  app2d: null,
+  app3d: null,
+  loaded: false,
 
   init: function () {
-    this.loadGGB();
-    this.initialized = true;
+    if (this.loaded) return;
+    this.loaded = true;
+
+    // ===== 2D =====
+    this.app2d = new GGBApplet({
+      appName: "classic",
+      width: "100%",
+      height: 420,
+      showToolBar: false,
+      showMenuBar: false,
+      showAlgebraInput: false,
+      enableShiftDragZoom: true,
+      scaleContainerClass: "ggb-container",
+      filename: "MoPhongBinhHoa2D.ggb"
+    }, true);
+
+    this.app2d.inject("ggb-vase-2d");
   },
 
-  /* ===== PHASE 1: LOAD GGB ===== */
-  loadGGB: function () {
-    if (this.ggbLoaded) return;
-
-    const app = new GGBApplet(
-      {
-        appName: "classic",
-        width: "100%",
-        height: 420,
-        showToolBar: false,
-        showAlgebraInput: false,
-        showMenuBar: false,
-        filename: "MoPhongBinhHoa2D.ggb", // ⚠️ tên file của bạn
-      },
-      true
-    );
-
-    app.inject("ggb-vase-2d");
-    this.ggbLoaded = true;
-  },
-
-  /* ===== CHUYỂN SANG 3D ===== */
   showVolume: function () {
+    // ẩn 2D
     document.getElementById("vase-2d-wrap").style.display = "none";
+
+    // hiện 3D
     document.getElementById("vase-3d-wrap").style.display = "block";
 
-    if (!this.scene) this.init3D();
-  },
+    // chỉ load 1 lần
+    if (!this.app3d) {
+      this.app3d = new GGBApplet({
+        appName: "3d",
+        width: "100%",
+        height: 520,
+        showToolBar: true,
+        showMenuBar: false,
+        enableShiftDragZoom: true,
+        scaleContainerClass: "ggb-container",
+        filename: "TheTichBinhHoa3D1.ggb"
+      }, true);
 
-  /* ===== PHASE 2: THREE.JS ===== */
-  init3D: function () {
-    const container = document.getElementById("container3d-l3");
-    if (!container) return;
-
-    this.scene = new THREE.Scene();
-
-    this.camera = new THREE.PerspectiveCamera(
-      50,
-      container.clientWidth / container.clientHeight,
-      0.01,
-      200
-    );
-    this.camera.position.set(6, 4, 6);
-
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(container.clientWidth, container.clientHeight);
-    container.innerHTML = "";
-    container.appendChild(this.renderer.domElement);
-
-    this.controls = new THREE.OrbitControls(
-      this.camera,
-      this.renderer.domElement
-    );
-    this.controls.enableDamping = true;
-
-    // 🔥 bình hoa demo (sau này ta nâng cấp theo hàm)
-    const geo = new THREE.CylinderGeometry(1.2, 0.4, 4, 80);
-    const mat = new THREE.MeshPhongMaterial({
-      color: 0xcc88ff,
-      transparent: true,
-      opacity: 0.65,
-    });
-    const vase = new THREE.Mesh(geo, mat);
-    this.scene.add(vase);
-
-    this.scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-
-    const self = this;
-    function animate() {
-      requestAnimationFrame(animate);
-      self.controls.update();
-      self.renderer.render(self.scene, self.camera);
+      this.app3d.inject("container3d-l3");
     }
-    animate();
-  },
-
-  onResize: function () {
-    if (!this.renderer) return;
-    const container = document.getElementById("container3d-l3");
-    this.camera.aspect =
-      container.clientWidth / container.clientHeight;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(
-      container.clientWidth,
-      container.clientHeight
-    );
-  },
+  }
 };
-
       // Window resize
       window.addEventListener("resize", function () {
         if (currentLesson === 1) L1.onResize();
