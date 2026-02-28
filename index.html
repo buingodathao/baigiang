@@ -1,83 +1,2327 @@
-<!DOCTYPE html>
+hãy sửa theo đoạn mã này, điều chỉnh lại thứ tự bài học như trên và bổ sung mã code của phần mô phỏng bình hoa và thể tích bình hoa vào giúp tôi. Đoạn mã index.html của tôi hiện tại như sau: <!doctype html>
+
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Bài Giảng Số: Ứng Dụng Tích Phân</title>
-    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+
+  <head>
+
+    <meta charset="UTF-8" />
+
+    <meta
+
+      name="viewport"
+
+      content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=5.0, user-scalable=yes"
+
+    />
+
+    <title>Toán Học Trực Quan - Cô Thảo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+
+      rel="stylesheet"
+
+    />
+
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8f9fa; margin: 0; display: flex; }
-        /* Thanh điều hướng bên trái */
-        .sidebar { width: 280px; background-color: #2c3e50; color: white; height: 100vh; padding: 20px; box-sizing: border-box; position: fixed; }
-        .sidebar h2 { font-size: 1.2rem; border-bottom: 1px solid #5d6d7e; padding-bottom: 10px; }
-        .menu-item { padding: 12px; margin: 8px 0; background: #34495e; border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
-        .menu-item:hover { background: #1a73e8; }
-        .menu-item.active { background: #1a73e8; border-left: 5px solid #fff; }
-        
-        /* Nội dung chính bên phải */
-        .main-content { margin-left: 280px; flex-grow: 1; padding: 20px; text-align: center; }
-        .header-title { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        #ggb-container { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: inline-block; }
-        footer { margin-top: 20px; font-size: 0.8rem; color: #667; }
+
+      * {
+
+        margin: 0;
+
+        padding: 0;
+
+        box-sizing: border-box;
+
+      }
+
+      body {
+
+        font-family: "Nunito", "Segoe UI", Arial, sans-serif;
+
+        background: #0a0a1a;
+
+        color: #e0e0e0;
+
+        min-height: 100vh;
+
+      }
+
+
+
+      /* ============ LANDING PAGE ============ */
+
+      #landing-page {
+
+        min-height: 100vh;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: linear-gradient(
+
+          135deg,
+
+          #0a0a1a 0%,
+
+          #1a1a3e 50%,
+
+          #0a0a1a 100%
+
+        );
+
+        padding: 20px;
+
+      }
+
+      #landing-page .hero-title {
+
+        font-size: 42px;
+
+        font-weight: 800;
+
+        text-align: center;
+
+        margin-bottom: 8px;
+
+        background: linear-gradient(135deg, #4fc3f7, #ab47bc, #ff7043);
+
+        -webkit-background-clip: text;
+
+        -webkit-text-fill-color: transparent;
+
+        background-clip: text;
+
+      }
+
+      #landing-page .hero-sub {
+
+        font-size: 18px;
+
+        color: #aaa;
+
+        text-align: center;
+
+        margin-bottom: 40px;
+
+      }
+
+      .lesson-cards {
+
+        display: flex;
+
+        gap: 30px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        max-width: 900px;
+
+      }
+
+      .lesson-card {
+
+        background: linear-gradient(145deg, #16213e, #1a2744);
+
+        border: 2px solid #0f3460;
+
+        border-radius: 16px;
+
+        padding: 30px 28px;
+
+        width: 380px;
+
+        cursor: pointer;
+
+        transition: all 0.3s ease;
+
+        position: relative;
+
+        overflow: hidden;
+
+      }
+
+      .lesson-card::before {
+
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+
+        left: 0;
+
+        right: 0;
+
+        height: 4px;
+
+        border-radius: 16px 16px 0 0;
+
+      }
+
+      .lesson-card:nth-child(1)::before {
+
+        background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+
+      }
+
+      .lesson-card:nth-child(2)::before {
+
+        background: linear-gradient(90deg, #ab47bc, #e040fb);
+
+      }
+
+      .lesson-card:hover {
+
+        transform: translateY(-6px);
+
+        box-shadow: 0 12px 40px rgba(79, 195, 247, 0.15);
+
+        border-color: #4fc3f7;
+
+      }
+
+      .lesson-card .card-icon {
+
+        font-size: 48px;
+
+        margin-bottom: 14px;
+
+      }
+
+      .lesson-card .card-title {
+
+        font-size: 20px;
+
+        font-weight: 700;
+
+        margin-bottom: 10px;
+
+        color: #fff;
+
+      }
+
+      .lesson-card .card-desc {
+
+        font-size: 14px;
+
+        color: #aab;
+
+        line-height: 1.6;
+
+      }
+
+      .lesson-card .card-tag {
+
+        display: inline-block;
+
+        margin-top: 14px;
+
+        padding: 4px 12px;
+
+        border-radius: 20px;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+      }
+
+      .lesson-card:nth-child(1) .card-tag {
+
+        background: rgba(79, 195, 247, 0.15);
+
+        color: #4fc3f7;
+
+      }
+
+      .lesson-card:nth-child(2) .card-tag {
+
+        background: rgba(171, 71, 188, 0.15);
+
+        color: #ce93d8;
+
+      }
+
+
+
+      .back-btn {
+
+        position: fixed;
+
+        top: 12px;
+
+        left: 12px;
+
+        z-index: 1000;
+
+        padding: 8px 16px;
+
+        background: rgba(15, 52, 96, 0.9);
+
+        border: 1px solid #4fc3f7;
+
+        color: #4fc3f7;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        backdrop-filter: blur(8px);
+
+        transition: all 0.2s;
+
+        display: none;
+
+      }
+
+      .back-btn:hover {
+
+        background: #4fc3f7;
+
+        color: #0a0a1a;
+
+      }
+
+
+
+      .lesson-page {
+
+        display: none;
+
+      }
+
+      .lesson-page.active {
+
+        display: block;
+
+      }
+
+
+
+      /* ============ LESSON 1 ============ */
+
+      #lesson1 {
+
+        height: 100vh;
+
+        overflow: hidden;
+
+      }
+
+      #lesson1 .container {
+
+        display: flex;
+
+        height: 100vh;
+
+      }
+
+      .sidebar {
+
+        width: 300px;
+
+        min-width: 300px;
+
+        padding: 12px;
+
+        background: #16213e;
+
+        overflow-y: auto;
+
+        border-right: 2px solid #0f3460;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 6px;
+
+      }
+
+      .sidebar h2 {
+
+        text-align: center;
+
+        color: #4fc3f7;
+
+        font-size: 17px;
+
+        margin-bottom: 4px;
+
+      }
+
+      .main-view {
+
+        flex: 1;
+
+        display: flex;
+
+        flex-direction: column;
+
+      }
+
+      .top-area {
+
+        flex: 1;
+
+        display: flex;
+
+      }
+
+      #container3d {
+
+        flex: 1;
+
+        position: relative;
+
+        background: #f0f0f0;
+
+        min-height: 0;
+
+      }
+
+      .graph-panel {
+
+        width: 380px;
+
+        min-width: 320px;
+
+        background: #16213e;
+
+        border-left: 2px solid #0f3460;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        padding: 8px;
+
+      }
+
+      .graph-panel h3 {
+
+        color: #4fc3f7;
+
+        font-size: 14px;
+
+        margin-bottom: 4px;
+
+      }
+
+      #graph2d {
+
+        background: #fff;
+
+        border-radius: 6px;
+
+        width: 100%;
+
+        flex: 1;
+
+      }
+
+      .slider-group {
+
+        margin: 2px 0;
+
+      }
+
+      .slider-group label {
+
+        display: flex;
+
+        align-items: center;
+
+        font-size: 13px;
+
+        gap: 6px;
+
+      }
+
+      .slider-group input[type="range"] {
+
+        flex: 1;
+
+        height: 6px;
+
+        cursor: pointer;
+
+        accent-color: #4fc3f7;
+
+      }
+
+      .val {
+
+        font-weight: bold;
+
+        color: #4fc3f7;
+
+        min-width: 40px;
+
+        text-align: right;
+
+      }
+
+      .info-box {
+
+        background: #0f3460;
+
+        padding: 10px;
+
+        border-radius: 8px;
+
+        margin: 4px 0;
+
+      }
+
+      .info-box p {
+
+        margin: 3px 0;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+      }
+
+      .info-box b {
+
+        color: #4fc3f7;
+
+      }
+
+      .formula {
+
+        text-align: center;
+
+        font-size: 16px;
+
+        color: #e8e8e8;
+
+        margin: 6px 0;
+
+        background: #0f3460;
+
+        padding: 8px;
+
+        border-radius: 6px;
+
+      }
+
+      .note {
+
+        background: #fff9c4;
+
+        color: #333;
+
+        padding: 8px;
+
+        border-radius: 6px;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+
+      }
+
+      .func-input {
+
+        display: flex;
+
+        gap: 6px;
+
+        align-items: center;
+
+        margin: 2px 0;
+
+      }
+
+      .func-input label {
+
+        font-size: 13px;
+
+        white-space: nowrap;
+
+      }
+
+      .func-input input {
+
+        flex: 1;
+
+        padding: 4px 8px;
+
+        border-radius: 4px;
+
+        border: 1px solid #4fc3f7;
+
+        background: #0a1628;
+
+        color: #4fc3f7;
+
+        font-size: 13px;
+
+        font-family: monospace;
+
+      }
+
+      .btn-row {
+
+        display: flex;
+
+        gap: 6px;
+
+        margin: 4px 0;
+
+        flex-wrap: wrap;
+
+      }
+
+      .btn {
+
+        padding: 5px 10px;
+
+        border: none;
+
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        font-size: 12px;
+
+        color: #fff;
+
+        background: #0f3460;
+
+        transition: background 0.2s;
+
+      }
+
+      .btn:hover {
+
+        background: #1a5276;
+
+      }
+
+      .btn.active {
+
+        background: #e74c3c;
+
+      }
+
+      .help {
+
+        font-size: 11px;
+
+        color: #888;
+
+        margin-top: 4px;
+
+        line-height: 1.6;
+
+      }
+
+      .disk-info {
+
+        background: #1b3a5c;
+
+        padding: 6px 10px;
+
+        border-radius: 6px;
+
+        font-size: 12px;
+
+        margin: 2px 0;
+
+        border-left: 3px solid #ffdd00;
+
+      }
+
+      .disk-info span {
+
+        color: #ffdd00;
+
+        font-weight: bold;
+
+      }
+
+
+
+      /* ============ LESSON 2 ============ */
+
+      #lesson2 {
+
+        height: 100vh;
+
+        overflow: hidden;
+
+      }
+
+      #lesson2 .l2-container {
+
+        display: flex;
+
+        height: 100vh;
+
+      }
+
+      #lesson2 .l2-sidebar {
+
+        width: 320px;
+
+        min-width: 320px;
+
+        padding: 14px;
+
+        background: #16213e;
+
+        overflow-y: auto;
+
+        border-right: 2px solid #0f3460;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+      }
+
+      #lesson2 .l2-sidebar h2 {
+
+        text-align: center;
+
+        color: #ce93d8;
+
+        font-size: 17px;
+
+        margin-bottom: 4px;
+
+      }
+
+      #lesson2 .l2-main {
+
+        flex: 1;
+
+        display: flex;
+
+        flex-direction: column;
+
+        background: #fff;
+
+        position: relative;
+
+      }
+
+      #lesson2 canvas {
+
+        width: 100%;
+
+        height: 100%;
+
+      }
+
+      #lesson2 .l2-func-input {
+
+        display: flex;
+
+        gap: 6px;
+
+        align-items: center;
+
+        margin: 2px 0;
+
+      }
+
+      #lesson2 .l2-func-input label {
+
+        font-size: 13px;
+
+        white-space: nowrap;
+
+        color: #ce93d8;
+
+        font-weight: 700;
+
+      }
+
+      #lesson2 .l2-func-input input {
+
+        flex: 1;
+
+        padding: 5px 8px;
+
+        border-radius: 4px;
+
+        border: 1px solid #ce93d8;
+
+        background: #0a1628;
+
+        color: #ce93d8;
+
+        font-size: 13px;
+
+        font-family: monospace;
+
+      }
+
+      #lesson2 .l2-slider {
+
+        margin: 3px 0;
+
+      }
+
+      #lesson2 .l2-slider label {
+
+        display: flex;
+
+        align-items: center;
+
+        font-size: 13px;
+
+        gap: 6px;
+
+      }
+
+      #lesson2 .l2-slider input[type="range"] {
+
+        flex: 1;
+
+        height: 6px;
+
+        cursor: pointer;
+
+        accent-color: #ce93d8;
+
+      }
+
+      #lesson2 .l2-val {
+
+        font-weight: bold;
+
+        color: #ce93d8;
+
+        min-width: 40px;
+
+        text-align: right;
+
+      }
+
+      #lesson2 .l2-info {
+
+        background: #0f3460;
+
+        padding: 10px;
+
+        border-radius: 8px;
+
+        margin: 4px 0;
+
+      }
+
+      #lesson2 .l2-info p {
+
+        margin: 3px 0;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+      }
+
+      #lesson2 .l2-info b {
+
+        color: #ce93d8;
+
+      }
+
+      #lesson2 .l2-formula {
+
+        text-align: center;
+
+        font-size: 15px;
+
+        color: #e8e8e8;
+
+        margin: 6px 0;
+
+        background: #0f3460;
+
+        padding: 8px;
+
+        border-radius: 6px;
+
+      }
+
+      #lesson2 .l2-note {
+
+        background: #f3e5f5;
+
+        color: #333;
+
+        padding: 8px;
+
+        border-radius: 6px;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+
+      }
+
+      #lesson2 .l2-btn {
+
+        padding: 5px 10px;
+
+        border: none;
+
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        font-size: 12px;
+
+        color: #fff;
+
+        background: #6a1b9a;
+
+        transition: background 0.2s;
+
+      }
+
+      #lesson2 .l2-btn:hover {
+
+        background: #8e24aa;
+
+      }
+
+      #lesson2 .l2-btn.active {
+
+        background: #e74c3c;
+
+      }
+
+      #lesson2 .l2-rect-list {
+
+        background: #0a1628;
+
+        border: 1px solid #333;
+
+        border-radius: 6px;
+
+        padding: 8px;
+
+        max-height: 100px;
+
+        overflow-y: auto;
+
+        font-size: 11px;
+
+        font-family: monospace;
+
+        color: #ce93d8;
+
+        line-height: 1.5;
+
+      }
+
+      .l2-help {
+
+        font-size: 11px;
+
+        color: #888;
+
+        margin-top: 4px;
+
+        line-height: 1.6;
+
+      }
+
+
+
+      /* ===== TABLET ===== */
+
+      @media (max-width: 900px) {
+
+        body {
+
+          overflow: auto;
+
+          font-size: 15px;
+
+        }
+
+        #lesson1,
+
+        #lesson2 {
+
+          height: auto;
+
+          overflow: auto;
+
+        }
+
+        #lesson1 .container,
+
+        #lesson2 .l2-container {
+
+          flex-direction: column;
+
+          height: auto;
+
+          min-height: 100vh;
+
+        }
+
+        .sidebar,
+
+        #lesson2 .l2-sidebar {
+
+          width: 100%;
+
+          min-width: unset;
+
+          border-right: none;
+
+          border-bottom: 2px solid #0f3460;
+
+        }
+
+        .top-area {
+
+          flex-direction: column;
+
+        }
+
+        #container3d {
+
+          width: 100%;
+
+          height: 50vh;
+
+          min-height: 280px;
+
+        }
+
+        .graph-panel {
+
+          width: 100%;
+
+          min-width: unset;
+
+          height: 320px;
+
+          border-left: none;
+
+          border-top: 2px solid #0f3460;
+
+        }
+
+        #lesson2 .l2-main {
+
+          min-height: 60vh;
+
+        }
+
+        .lesson-cards {
+
+          flex-direction: column;
+
+          align-items: center;
+
+        }
+
+        .lesson-card {
+
+          width: 100%;
+
+          max-width: 400px;
+
+        }
+
+        #landing-page .hero-title {
+
+          font-size: 28px;
+
+        }
+
+      }
+
+
+
+      /* ===== PHONE ===== */
+
+      @media (max-width: 480px) {
+
+        body {
+
+          font-size: 16px;
+
+          -webkit-text-size-adjust: 100%;
+
+        }
+
+
+
+        /* Landing page */
+
+        #landing-page {
+
+          padding: 16px 10px;
+
+        }
+
+        #landing-page .hero-title {
+
+          font-size: 24px;
+
+        }
+
+        #landing-page .hero-sub {
+
+          font-size: 15px;
+
+          margin-bottom: 24px;
+
+        }
+
+        .lesson-card {
+
+          padding: 20px 18px;
+
+        }
+
+        .lesson-card .card-icon {
+
+          font-size: 36px;
+
+          margin-bottom: 10px;
+
+        }
+
+        .lesson-card .card-title {
+
+          font-size: 17px;
+
+        }
+
+        .lesson-card .card-desc {
+
+          font-size: 13px;
+
+        }
+
+
+
+        /* Back button */
+
+        .back-btn {
+
+          padding: 10px 18px;
+
+          font-size: 15px;
+
+          top: 8px;
+
+          left: 8px;
+
+        }
+
+
+
+        /* Sidebars */
+
+        .sidebar,
+
+        #lesson2 .l2-sidebar {
+
+          padding: 10px;
+
+          gap: 8px;
+
+        }
+
+        .sidebar h2,
+
+        #lesson2 .l2-sidebar h2 {
+
+          font-size: 18px;
+
+          margin-bottom: 6px;
+
+        }
+
+
+
+        /* Function inputs */
+
+        .func-input input,
+
+        #lesson2 .l2-func-input input {
+
+          font-size: 15px;
+
+          padding: 8px 10px;
+
+          min-height: 40px;
+
+        }
+
+        .func-input label,
+
+        #lesson2 .l2-func-input label {
+
+          font-size: 15px;
+
+        }
+
+
+
+        /* Sliders - bigger touch target */
+
+        .slider-group label,
+
+        #lesson2 .l2-slider label {
+
+          font-size: 14px;
+
+          gap: 8px;
+
+          min-height: 36px;
+
+        }
+
+        .slider-group input[type="range"],
+
+        #lesson2 .l2-slider input[type="range"] {
+
+          height: 10px;
+
+          min-height: 36px;
+
+        }
+
+        .val,
+
+        #lesson2 .l2-val {
+
+          font-size: 15px;
+
+          min-width: 48px;
+
+        }
+
+
+
+        /* Buttons - bigger touch target */
+
+        .btn,
+
+        #lesson2 .l2-btn {
+
+          padding: 10px 14px;
+
+          font-size: 14px;
+
+          min-height: 40px;
+
+          border-radius: 6px;
+
+        }
+
+        .btn-row {
+
+          gap: 8px;
+
+          margin: 6px 0;
+
+        }
+
+
+
+        /* Info boxes */
+
+        .info-box,
+
+        #lesson2 .l2-info {
+
+          padding: 12px;
+
+        }
+
+        .info-box p,
+
+        #lesson2 .l2-info p {
+
+          font-size: 14px;
+
+          margin: 4px 0;
+
+        }
+
+        .formula,
+
+        #lesson2 .l2-formula {
+
+          font-size: 16px;
+
+          padding: 10px;
+
+        }
+
+
+
+        /* Disk info */
+
+        .disk-info {
+
+          font-size: 13px;
+
+          padding: 8px 12px;
+
+        }
+
+
+
+        /* Note */
+
+        .note,
+
+        #lesson2 .l2-note {
+
+          font-size: 13px;
+
+          padding: 10px;
+
+        }
+
+
+
+        /* 3D & graph */
+
+        #container3d {
+
+          height: 45vh;
+
+          min-height: 240px;
+
+        }
+
+        .graph-panel {
+
+          height: 280px;
+
+          padding: 10px;
+
+        }
+
+        .graph-panel h3 {
+
+          font-size: 15px;
+
+        }
+
+
+
+        /* L2 canvas */
+
+        #lesson2 .l2-main {
+
+          min-height: 55vh;
+
+        }
+
+
+
+        /* Rect list */
+
+        #lesson2 .l2-rect-list {
+
+          font-size: 12px;
+
+          padding: 10px;
+
+          max-height: 80px;
+
+        }
+
+
+
+        /* Help text hidden on phone */
+
+        .help,
+
+        .l2-help {
+
+          display: none;
+
+        }
+
+      }
+
+
+
+      /* ===== VERY SMALL PHONE ===== */
+
+      @media (max-width: 360px) {
+
+        #landing-page .hero-title {
+
+          font-size: 20px;
+
+        }
+
+        .sidebar,
+
+        #lesson2 .l2-sidebar {
+
+          padding: 8px;
+
+        }
+
+        .func-input input,
+
+        #lesson2 .l2-func-input input {
+
+          font-size: 14px;
+
+          padding: 6px 8px;
+
+          min-height: 36px;
+
+        }
+
+        .btn,
+
+        #lesson2 .l2-btn {
+
+          padding: 8px 10px;
+
+          font-size: 13px;
+
+          min-height: 36px;
+
+        }
+
+        #container3d {
+
+          height: 40vh;
+
+          min-height: 200px;
+
+        }
+
+        .graph-panel {
+
+          height: 240px;
+
+        }
+
+      }
+
     </style>
-</head>
-<body>
 
-<div class="sidebar">
-    <h2>DANH MỤC BÀI HỌC</h2>
-    <div class="menu-item" id="btn1" onclick="changeLesson('Bai1_DienTichHinhPhang.ggb', '1. Diện tích hình phẳng', 'btn1')">1. Diện tích hình phẳng</div>
-    <div class="menu-item" id="btn2" onclick="changeLesson('Bai2_TheTichKhoiTronXoay.ggb', '2. Thể tích khối tròn xoay', 'btn2')">2. Thể tích khối tròn xoay</div>
-    <div class="menu-item" id="btn3" onclick="changeLesson('MoPhongBinhHoa2D.ggb', '3. Thiết diện Bình hoa (2D)', 'btn3')">3. Thiết diện Bình hoa (2D)</div>
-    <div class="menu-item" id="btn4" onclick="changeLesson('TheTichBinhHoa3D1.ggb', '4. Thể tích Bình hoa (3D)', 'btn4')">4. Thể tích Bình hoa (3D)</div>
-    
-    <div style="margin-top: 30px; font-size: 0.8rem; opacity: 0.7;">
-        <p><b>Sáng kiến kinh nghiệm:</b><br>Ứng dụng công nghệ số trong dạy học Toán chuyên</p>
+  </head>
+
+  <body>
+
+    <!-- ================== LANDING PAGE ================== -->
+
+    <div id="landing-page">
+
+      <div class="hero-title">&#x1F4D0; Toán Học Trực Quan</div>
+
+      <div class="hero-sub">Chọn bài học để bắt đầu</div>
+
+      <div class="lesson-cards">
+
+        <div class="lesson-card" onclick="openLesson(1)">
+
+          <div class="card-icon">&#x1F504;</div>
+
+          <div class="card-title">Bài 1: Thể Tích Vật Thể Tròn Xoay</div>
+
+          <div class="card-desc">
+
+            Khám phá phương pháp đĩa để tính thể tích vật thể tròn xoay. Trực
+
+            quan hóa 3D với các lát cắt hình trụ, điều chỉnh hàm số và tham số
+
+            để hiểu sâu hơn.
+
+          </div>
+
+          <span class="card-tag">Giải tích &#x2022; 3D</span>
+
+        </div>
+
+        <div class="lesson-card" onclick="openLesson(2)">
+
+          <div class="card-icon">&#x1F4CA;</div>
+
+          <div class="card-title">
+
+            Bài 2: Tích Phân Xác Định &amp; Tổng Riemann
+
+          </div>
+
+          <div class="card-desc">
+
+            Trực quan hóa tích phân xác định bằng tổng Riemann. Nhập bất kỳ hàm
+
+            số nào, điều chỉnh cận và số hình chữ nhật để thấy quá trình hội tụ.
+
+          </div>
+
+          <span class="card-tag">Giải tích &#x2022; 2D</span>
+
+        </div>
+
+      </div>
+
     </div>
-</div>
 
-<div class="main-content">
-    <div class="header-title">
-        <h2 id="current-title">Đang tải bài giảng...</h2>
-        <p>Sử dụng chuột để xoay hình (3D) hoặc thay đổi tham số để quan sát sự thay đổi.</p>
+
+
+    <button class="back-btn" id="back-btn" onclick="goHome()">
+
+      &#x2190; Quay lại
+
+    </button>
+
+
+
+    <!-- ================== LESSON 1 ================== -->
+
+    <div id="lesson1" class="lesson-page">
+
+      <div class="container">
+
+        <div class="sidebar">
+
+          <h2>&#x1F504; Thể Tích Tròn Xoay</h2>
+
+          <div class="func-input">
+
+            <label>f(x) =</label>
+
+            <input
+
+              type="text"
+
+              id="func-input"
+
+              value="sqrt(x)"
+
+              spellcheck="false"
+
+            />
+
+            <button class="btn" onclick="applyFunction()">OK</button>
+
+          </div>
+
+          <div class="slider-group">
+
+            <label
+
+              >a = <span class="val" id="val-a">0</span
+
+              ><input
+
+                type="range"
+
+                id="slider-a"
+
+                min="-5"
+
+                max="10"
+
+                step="0.1"
+
+                value="0"
+
+            /></label>
+
+          </div>
+
+          <div class="slider-group">
+
+            <label
+
+              >b = <span class="val" id="val-b">4</span
+
+              ><input
+
+                type="range"
+
+                id="slider-b"
+
+                min="-5"
+
+                max="16"
+
+                step="0.1"
+
+                value="4"
+
+            /></label>
+
+          </div>
+
+          <div class="slider-group">
+
+            <label
+
+              >&#x03B1; = <span class="val" id="val-alpha">360&#xB0;</span
+
+              ><input
+
+                type="range"
+
+                id="slider-alpha"
+
+                min="0"
+
+                max="360"
+
+                step="1"
+
+                value="360"
+
+            /></label>
+
+          </div>
+
+          <div class="slider-group">
+
+            <label
+
+              >n = <span class="val" id="val-n">20</span
+
+              ><input
+
+                type="range"
+
+                id="slider-n"
+
+                min="1"
+
+                max="100"
+
+                step="1"
+
+                value="20"
+
+            /></label>
+
+          </div>
+
+          <div class="slider-group">
+
+            <label
+
+              >k = <span class="val" id="val-k">1</span
+
+              ><input
+
+                type="range"
+
+                id="slider-k"
+
+                min="1"
+
+                max="20"
+
+                step="1"
+
+                value="1"
+
+            /></label>
+
+          </div>
+
+          <div class="btn-row">
+
+            <button class="btn" id="btn-play-alpha" onclick="togglePlayAlpha()">
+
+              &#x25B6; Quay &#x03B1;
+
+            </button>
+
+            <button class="btn" id="btn-play-n" onclick="togglePlayN()">
+
+              &#x25B6; Tăng n
+
+            </button>
+
+            <button class="btn" onclick="resetView()">&#x21BA; Reset</button>
+
+          </div>
+
+          <div class="info-box">
+
+            <p>
+
+              <b>Thể tích vật thể (V)</b> =
+
+              <span id="exact-vol" style="color: #4fc3f7">0</span>
+
+            </p>
+
+            <p>
+
+              <b>Tổng thể tích n trụ (S&#x2099;)</b> =
+
+              <span id="approx-vol" style="color: #ffd54f">0</span>
+
+            </p>
+
+            <p>
+
+              <b>Sai số |V - S&#x2099;|</b> =
+
+              <span id="error-vol" style="color: #ef5350">0</span>
+
+            </p>
+
+          </div>
+
+          <div class="disk-info" id="disk-info">
+
+            Lát cắt <span>k=1</span>: x = 0, r = 0, &#x0394;V = 0
+
+          </div>
+
+          <div class="formula">
+
+            V = &#x222B;<sub>a</sub><sup>b</sup> &#x03C0; [f(x)]&#xB2; dx
+
+          </div>
+
+          <div class="note">
+
+            &#x1F4CC; Khi <b>n càng lớn</b> thì tổng S&#x2099;
+
+            <b>càng gần</b> với thể tích vật thể V.<br />S&#x2099; &#x2192; V
+
+            khi n &#x2192; &#x221E;
+
+          </div>
+
+          <div class="help">
+
+            &#x1F5B1; Chuột trái: Xoay | Chuột phải: Di chuyển<br />&#x1F504;
+
+            Cuộn: Phóng to/nhỏ | Shift+Kéo: Dịch vật thể<br />&#x1F4DD; Hàm:
+
+            sqrt(x), x^2, sin(x), abs(x), exp(x), x^3-2x+1...
+
+          </div>
+
+        </div>
+
+        <div class="main-view">
+
+          <div class="top-area">
+
+            <div id="container3d"></div>
+
+            <div class="graph-panel">
+
+              <h3>Đồ thị y = f(x)</h3>
+
+              <canvas id="graph2d"></canvas>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <div id="ggb-container">
-        <div id="ggb-element"></div>
+
+
+    <!-- ================== LESSON 2 ================== -->
+
+    <div id="lesson2" class="lesson-page">
+
+      <div class="l2-container">
+
+        <div class="l2-sidebar">
+
+          <h2>&#x1F4CA; Tích Phân &amp; Tổng Riemann</h2>
+
+          <div class="l2-func-input">
+
+            <label>f(x) =</label>
+
+            <input
+
+              type="text"
+
+              id="l2-func-input"
+
+              value="x^2 - 2x + 3"
+
+              spellcheck="false"
+
+            />
+
+            <button class="l2-btn" onclick="L2.applyFunction()">OK</button>
+
+          </div>
+
+          <div class="l2-slider">
+
+            <label
+
+              >a = <span class="l2-val" id="l2-val-a">-1</span
+
+              ><input
+
+                type="range"
+
+                id="l2-slider-a"
+
+                min="-10"
+
+                max="10"
+
+                step="0.1"
+
+                value="-1"
+
+            /></label>
+
+          </div>
+
+          <div class="l2-slider">
+
+            <label
+
+              >b = <span class="l2-val" id="l2-val-b">9</span
+
+              ><input
+
+                type="range"
+
+                id="l2-slider-b"
+
+                min="-10"
+
+                max="10"
+
+                step="0.1"
+
+                value="9"
+
+            /></label>
+
+          </div>
+
+          <div class="l2-slider">
+
+            <label
+
+              >n = <span class="l2-val" id="l2-val-n">50</span
+
+              ><input
+
+                type="range"
+
+                id="l2-slider-n"
+
+                min="1"
+
+                max="200"
+
+                step="1"
+
+                value="50"
+
+            /></label>
+
+          </div>
+
+          <div class="btn-row">
+
+            <button
+
+              class="l2-btn"
+
+              id="l2-btn-left"
+
+              onclick="L2.setMethod('left')"
+
+              style="background: #6a1b9a"
+
+            >
+
+              &#x25C0; Trái
+
+            </button>
+
+            <button
+
+              class="l2-btn"
+
+              id="l2-btn-right"
+
+              onclick="L2.setMethod('right')"
+
+            >
+
+              Phải &#x25B6;
+
+            </button>
+
+            <button
+
+              class="l2-btn"
+
+              id="l2-btn-mid"
+
+              onclick="L2.setMethod('mid')"
+
+            >
+
+              &#x25AE; Giữa
+
+            </button>
+
+            <button
+
+              class="l2-btn"
+
+              id="l2-btn-trap"
+
+              onclick="L2.setMethod('trap')"
+
+            >
+
+              &#x23E2; Hình thang
+
+            </button>
+
+          </div>
+
+          <div class="btn-row">
+
+            <button class="l2-btn" id="l2-btn-play" onclick="L2.togglePlay()">
+
+              &#x25B6; Tăng n
+
+            </button>
+
+            <button class="l2-btn" onclick="L2.resetView()">
+
+              &#x21BA; Reset
+
+            </button>
+
+          </div>
+
+          <div class="l2-info">
+
+            <p>
+
+              <b>Tích phân chính xác (I)</b> =
+
+              <span id="l2-exact" style="color: #ce93d8">0</span>
+
+            </p>
+
+            <p>
+
+              <b>Tổng Riemann (S&#x2099;)</b> =
+
+              <span id="l2-approx" style="color: #ffd54f">0</span>
+
+            </p>
+
+            <p>
+
+              <b>Sai số |I - S&#x2099;|</b> =
+
+              <span id="l2-error" style="color: #ef5350">0</span>
+
+            </p>
+
+          </div>
+
+          <div class="l2-formula">
+
+            I = &#x222B;<sub>a</sub><sup>b</sup> f(x) dx
+
+          </div>
+
+          <div style="font-size: 12px; color: #aaa; margin: 2px 0">
+
+            Diện tích các hình chữ nhật:
+
+          </div>
+
+          <div class="l2-rect-list" id="l2-rect-list"></div>
+
+          <div class="l2-note">
+
+            &#x1F4CC; Khi <b>n &#x2192; &#x221E;</b>, tổng Riemann S&#x2099;
+
+            <b>hội tụ</b> về tích phân I.<br />Phương pháp: Trái, Phải, Giữa,
+
+            Hình thang.
+
+          </div>
+
+          <div class="l2-help">
+
+            &#x1F4DD; Hàm: x^2, x^3, sin(x), cos(x), tan(x), sqrt(x), abs(x),
+
+            exp(x), ln(x), log(x), asin(x), acos(x), atan(x), sinh(x), cosh(x),
+
+            tanh(x), floor(x), ceil(x), sign(x), cbrt(x), sec(x), csc(x),
+
+            cot(x), pi, e...<br />&#x1F4DD; Đa thức: 3x^4-2x^3+x^2-5x+7<br />&#x1F4DD;
+
+            Nhân ẩn: 2x, 3sin(x), 2(x+1)...
+
+          </div>
+
+        </div>
+
+        <div class="l2-main">
+
+          <canvas id="l2-canvas"></canvas>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <footer>
-        Thiết kế bởi Hệ thống quản lý học liệu số GitHub Pages
-    </footer>
-</div>
 
-<script>
-    function changeLesson(filename, title, btnId) {
-        // Cập nhật tiêu đề và trạng thái nút
-        document.getElementById('current-title').innerText = title;
-        document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-        document.getElementById(btnId).classList.add('active');
 
-        // Cấu hình GeoGebra
-        var params = {
-            "appName": "classic",
-            "width": 900,
-            "height": 650,
-            "showToolBar": false,
-            "showAlgebraInput": true,
-            "showMenuBar": false,
-            "filename": filename
-        };
+    <!-- ================== SCRIPTS ================== -->
 
-        var applet = new GGBApplet(params, true);
-        document.getElementById('ggb-element').innerHTML = ""; // Làm sạch vùng chứa
-        applet.inject('ggb-element');
-    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    // Tự động load bài đầu tiên khi mở trang
-    window.onload = function() {
-        changeLesson('Bai1_DienTichHinhPhang.ggb', '1. Diện tích hình phẳng', 'btn1');
-    };
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
-</body>
-</html>
+    <script>
+
+      /* =====================================================================
+
+       UNIVERSAL MATH PARSER - supports all functions + polynomials
+
+       ===================================================================== */
+
+      function parseMathExpr(expr) {
+
+        var s = expr.trim();
+
+        s = s.replace(/\s+/g, " ");
+
+
+
+        // Replace constants
+
+        s = s.replace(/\bpi\b/gi, "(Math.PI)");
+
+        // Replace 'e' only when standalone (not part of exp, ceil, etc)
+
+        s = s.replace(/(?<![a-zA-Z])e(?![a-zA-Z])/g, "(Math.E)");
+
+
+
+        // Replace math functions (longer names first to avoid partial matches)
+
+        var funcs = [
+
+          ["arcsinh", "Math.asinh"],
+
+          ["arccosh", "Math.acosh"],
+
+          ["arctanh", "Math.atanh"],
+
+          ["arcsin", "Math.asin"],
+
+          ["arccos", "Math.acos"],
+
+          ["arctan", "Math.atan"],
+
+          ["asinh", "Math.asinh"],
+
+          ["acosh", "Math.acosh"],
+
+          ["atanh", "Math.atanh"],
+
+          ["asin", "Math.asin"],
+
+          ["acos", "Math.acos"],
+
+          ["atan2", "Math.atan2"],
+
+          ["atan", "Math.atan"],
+
+          ["sinh", "Math.sinh"],
+
+          ["cosh", "Math.cosh"],
+
+          ["tanh", "Math.tanh"],
+
+          ["sqrt", "Math.sqrt"],
+
+          ["cbrt", "Math.cbrt"],
+
+          ["sin", "Math.sin"],
+
+          ["cos", "Math.cos"],
+
+          ["tan", "Math.tan"],
+
+          ["log10", "Math.log10"],
+
+          ["log2", "Math.log2"],
+
+          ["log", "Math.log"],
+
+          ["ln", "Math.log"],
+
+          ["exp", "Math.exp"],
+
+          ["abs", "Math.abs"],
+
+          ["sign", "Math.sign"],
+
+          ["floor", "Math.floor"],
+
+          ["ceil", "Math.ceil"],
+
+          ["round", "Math.round"],
+
+          ["max", "Math.max"],
+
+          ["min", "Math.min"],
+
+          ["pow", "Math.pow"],
+
+          ["trunc", "Math.trunc"],
+
+          ["hypot", "Math.hypot"],
+
+          ["sec", "__sec__"],
+
+          ["csc", "__csc__"],
+
+          ["cot", "__cot__"],
+
+        ];
+
+
+
+        for (var i = 0; i < funcs.length; i++) {
+
+          var name = funcs[i][0],
+
+            repl = funcs[i][1];
+
+          var re = new RegExp("\\b" + name + "\\s*\\(", "gi");
+
+          s = s.replace(re, repl + "(");
+
+        }
+
+
+
+        // Power operator
+
+        s = s.replace(/\^/g, "**");
+
+
+
+        // Implicit multiplication
+
+        // digit before letter (but not part of Math. or __sec__ etc)
+
+        s = s.replace(/(\d)([a-zA-Z_])/g, function (m, d, l) {
+
+          // Check if this is the start of Math. or __
+
+          if (l === "M" || l === "_") {
+
+            // Look ahead to check
+
+            return d + "*" + l;
+
+          }
+
+          return d + "*" + l;
+
+        });
+
+        // ) before ( or letter/digit
+
+        s = s.replace(/\)\s*\(/g, ")*(");
+
+        s = s.replace(/\)\s*([a-zA-Z0-9_])/g, ")*$1");
+
+        // digit or ) before (
+
+        s = s.replace(/(\d)\s*\(/g, "$1*(");
+
+        // variable before (
+
+        s = s.replace(/\bx\s*\(/g, "x*(");
+
+
+
+        return s;
+
+      }
+
+
+
+      function createSafeFunction(expr) {
+
+        var processed = parseMathExpr(expr);
+
+        var body =
+
+          "try {" +
+
+          "var __sec__ = function(v) { return 1/Math.cos(v); };" +
+
+          "var __csc__ = function(v) { return 1/Math.sin(v); };" +
+
+          "var __cot__ = function(v) { return Math.cos(v)/Math.sin(v); };" +
+
+          "var r = " +
+
+          processed +
+
+          ";" +
+
+          'return (typeof r === "number" && isFinite(r)) ? r : NaN;' +
+
+          "} catch(e) { return NaN; }";
+
+        var fn = new Function("x", body);
+
+        // Test the function
+
+        fn(0);
+
+        fn(1);
+
+        fn(-1);
+
+        fn(0.5);
+
+        fn(2);
+
+        return fn;
+
+      }
+
+
+
+      /* =====================================================================
+
+       NAVIGATION
+
+       ===================================================================== */
+
+      var currentLesson = 0;
+
+
+
+      function openLesson(num) {
+
+        document.getElementById("landing-page").style.display = "none";
+
+        document.getElementById("back-btn").style.display = "block";
+
+        if (num === 1) {
+
+          document.getElementById("lesson1").classList.add("active");
+
+          document.getElementById("lesson2").classList.remove("active");
+
+          if (!L1.initialized) {
+
+            L1.init();
+
+          } else {
+
+            setTimeout(function () {
+
+              L1.onResize();
+
+            }, 50);
+
+          }
+
+        } else {
+
+          document.getElementById("lesson2").classList.add("active");
+
+          document.getElementById("lesson1").classList.remove("active");
+
+          if (!L2.initialized) {
+
+            L2.init();
+
+          } else {
+
+            setTimeout(function () {
+
+              L2.draw();
+
+            }, 50);
+
+          }
+
+        }
+
+        currentLesson = num;
+
+      }
+
+
+
+      function goHome() {
+
+        document.getElementById("landing-page").style.display = "flex";
+
+        document.getElementById("back-btn").style.display = "none";
+
+        document.getElementById("lesson1").classList.remove("active");
+
+        document.getElementById("lesson2").classList.remove("active");
+
+        currentLesson = 0;
+
+      }
+
+
+
+ 
