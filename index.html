@@ -12,54 +12,10 @@
   data-a11y-animated-images="system" data-a11y-link-underlines="true"
   
   >
-/* ===== LEGENDARY BAR ===== */
-#legendary-bar {
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  background: rgba(10, 10, 30, 0.85);
-  border: 1px solid #4fc3f7;
-  border-radius: 14px;
-  padding: 8px 14px;
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  backdrop-filter: blur(10px);
-  font-size: 13px;
-}
 
-.lg-badge {
-  font-weight: 800;
-  color: #4fc3f7;
-}
-
-#legendary-bar button {
-  background: transparent;
-  border: 1px solid #4fc3f7;
-  color: #4fc3f7;
-  border-radius: 8px;
-  padding: 4px 10px;
-  cursor: pointer;
-}
-
-#legendary-bar button:hover {
-  background: #4fc3f7;
-  color: #000;
-}
-
-.proof-panel{
-  margin-top:16px;
-  padding:12px;
-  border-left:4px solid #ab47bc;
-  background: rgba(171,71,188,0.08);
-  border-radius:8px;
-  font-size:14px;
-}
-.proof-title{
-  font-weight:700;
-  margin-bottom:6px;
+    <style>
+:root {
+  --fontStack-monospace: "Monaspace Neon", ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
 }
 </style>
 
@@ -295,23 +251,6 @@
   </head>
 
   <body class="logged-in env-production page-responsive" style="word-wrap: break-word;" >
-<!-- LEGENDARY CONTROL BAR -->
-<div id="legendary-bar">
-  <div class="lg-left">
-    <span class="lg-badge">LEGENDARY MODE</span>
-  </div>
-
-  <div class="lg-center">
-    <button onclick="LG.toggleResearch()">🔬 Research</button>
-    <button onclick="LG.toggleChallenge()">⚔ Challenge</button>
-    <button onclick="LG.exportPNG()">📸 Snapshot</button>
-    <button onclick="LG.togglePerf()">⚡ Perf</button>
-  </div>
-
-  <div class="lg-right">
-    <span id="fps-counter">FPS: --</span>
-  </div>
-</div>
     <div data-turbo-body class="logged-in env-production page-responsive" style="word-wrap: break-word;" >
       <div id="__primerPortalRoot__" role="region" style="z-index: 1000; position: absolute; width: 100%;" data-turbo-permanent></div>
       
@@ -3669,60 +3608,6 @@ data-styled.g1[id="Box-sc-62in7e-0"]{content:"lpqgUB,"}/*!sc*/
     </div>
     <div id="js-global-screen-reader-notice" class="sr-only mt-n1" aria-live="polite" aria-atomic="true" ></div>
     <div id="js-global-screen-reader-notice-assertive" class="sr-only mt-n1" aria-live="assertive" aria-atomic="true"></div>
-<script>
-/* ===============================
-   LEGENDARY ENGINE
-================================ */
-
-const LG = {
-  researchMode: false,
-  challengeMode: false,
-  perfMode: true,
-  fps: 0,
-
-  toggleResearch() {
-    this.researchMode = !this.researchMode;
-    alert("Research mode: " + (this.researchMode ? "ON" : "OFF"));
-  },
-
-  toggleChallenge() {
-    this.challengeMode = !this.challengeMode;
-    alert("Challenge mode: " + (this.challengeMode ? "ON" : "OFF"));
-  },
-
-  togglePerf() {
-    this.perfMode = !this.perfMode;
-  },
-
-  exportPNG() {
-    const canvas = document.querySelector("canvas");
-    if (!canvas) return alert("Không tìm thấy canvas");
-    const link = document.createElement("a");
-    link.download = "legendary_snapshot.png";
-    link.href = canvas.toDataURL();
-    link.click();
-  }
-};
-
-/* FPS monitor */
-(function fpsMonitor(){
-  let last = performance.now();
-  let frames = 0;
-
-  function loop(now){
-    frames++;
-    if (now - last >= 1000){
-      LG.fps = frames;
-      frames = 0;
-      last = now;
-      const el = document.getElementById("fps-counter");
-      if (el) el.textContent = "FPS: " + LG.fps;
-    }
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-})();
-</script>
   </body>
 </html>
 
