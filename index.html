@@ -1157,36 +1157,31 @@
     var currentLesson = 0;
 
 function openLesson(num) {
-  // Ẩn tất cả bài
+  currentLesson = num;
+
+  // ❶ Ẩn landing page
+  const landing = document.getElementById("landing-page");
+  if (landing) landing.style.display = "none";
+
+  // ❷ Hiện nút back
+  const backBtn = document.getElementById("back-btn");
+  if (backBtn) backBtn.style.display = "block";
+
+  // ❸ Ẩn tất cả lesson
   document.querySelectorAll(".lesson-page").forEach(el => {
     el.style.display = "none";
   });
 
-  // Hiện bài được chọn
+  // ❹ Hiện lesson được chọn
   const lesson = document.getElementById("lesson" + num);
   if (lesson) lesson.style.display = "block";
 
-  // ⭐ Load GeoGebra cho bài 3
+  // ❺ Load GeoGebra bài 3 (chỉ load 1 lần)
   if (num === 3 && !window.ggb3Loaded) {
     window.ggb3Loaded = true;
-
-    const params3 = {
-      appName: "classic",
-      width: "100%",
-      height: 500,
-      showToolBar: true,
-      showAlgebraInput: false,
-      showMenuBar: false,
-      enableShiftDragZoom: true,
-      scaleContainerClass: "ggb-container",
-      filename: "MoPhongBinhHoa2D.ggb"
-    };
-
-    const applet3 = new GGBApplet(params3, true);
-    applet3.inject("ggb-vase-2d"); // ⚠️ ID phải đúng
+    L3.init();
   }
-}
-      function goHome() {
+}      function goHome() {
         document.getElementById("landing-page").style.display = "flex";
         document.getElementById("back-btn").style.display = "none";
         document.getElementById("lesson1").classList.remove("active");
