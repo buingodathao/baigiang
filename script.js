@@ -111,9 +111,8 @@
        ===================================================================== */
       var currentLesson = 0;
 
-    function openLesson(num) {
-  // chuyển sang file bài tương ứng
-  window.location.href = "bai" + num + ".html";
+  function openLesson(num) {
+  window.location.href = "lessons/bai" + num + ".html";
 }
 
       function goHome() {
