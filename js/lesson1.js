@@ -1,85 +1,67 @@
 function initLesson1(){
 
-  const container = document.getElementById("three-container");
+  const canvas = document.getElementById("areaCanvas");
+  const ctx = canvas.getContext("2d");
   const slider = document.getElementById("sliceSlider");
   const label = document.getElementById("sliceValue");
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-      45,
-      container.clientWidth/container.clientHeight,
-      0.1,
-      1000
-  );
-
-  const renderer = new THREE.WebGLRenderer({antialias:true});
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  container.appendChild(renderer.domElement);
-
-  // ===== ánh sáng =====
-  const light = new THREE.DirectionalLight(0xffffff,1);
-  light.position.set(5,10,7);
-  scene.add(light);
-  scene.add(new THREE.AmbientLight(0x404040));
-
-  // ===== mesh lát cắt =====
-  let sliceGroup = new THREE.Group();
-  scene.add(sliceGroup);
+  canvas.width = 900;
+  canvas.height = 500;
 
   function f(x){
-    return Math.sin(x)/2 + 1.2;
+    return Math.sin(x) + 2;
   }
 
-  function buildSlices(n){
+  function draw(n){
 
-    // xóa lát cũ
-    scene.remove(sliceGroup);
-    sliceGroup = new THREE.Group();
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    const a = -3;
-    const b = 3;
+    const a = 0;
+    const b = Math.PI * 2;
     const dx = (b-a)/n;
 
-    for(let i=0;i<n;i++){
+    // vẽ trục
+    ctx.strokeStyle="#000";
+    ctx.beginPath();
+    ctx.moveTo(40,400);
+    ctx.lineTo(860,400);
+    ctx.stroke();
 
+    // vẽ hình chữ nhật Riemann
+    for(let i=0;i<n;i++){
       const x = a + i*dx;
       const h = f(x);
 
-      const geometry = new THREE.BoxGeometry(dx*0.9, h, dx*0.9);
-      const material = new THREE.MeshPhongMaterial({
-        color:0x1e88e5,
-        transparent:true,
-        opacity:0.8
-      });
+      const px = 40 + i*(820/n);
+      const ph = h*80;
 
-      const box = new THREE.Mesh(geometry,material);
-      box.position.set(x, h/2, 0);
-
-      sliceGroup.add(box);
+      ctx.fillStyle="rgba(30,136,229,0.5)";
+      ctx.fillRect(px,400-ph,820/n-2,ph);
     }
 
-    scene.add(sliceGroup);
+    // vẽ đồ thị
+    ctx.strokeStyle="#e53935";
+    ctx.beginPath();
+    for(let i=0;i<=300;i++){
+      const x = a + (b-a)*i/300;
+      const y = f(x);
+
+      const px = 40 + (x-a)/(b-a)*820;
+      const py = 400 - y*80;
+
+      if(i===0) ctx.moveTo(px,py);
+      else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
   }
 
-  // ===== camera =====
-  camera.position.set(6,6,6);
-  camera.lookAt(0,0,0);
-
-  // ===== slider realtime =====
+  // realtime slider
   label.textContent = slider.value;
-  buildSlices(parseInt(slider.value));
+  draw(parseInt(slider.value));
 
   slider.addEventListener("input",()=>{
     const n = parseInt(slider.value);
     label.textContent = n;
-    buildSlices(n);
+    draw(n);
   });
-
-  // ===== animate =====
-  function animate(){
-    requestAnimationFrame(animate);
-    sliceGroup.rotation.y += 0.003;
-    renderer.render(scene,camera);
-  }
-  animate();
 }
