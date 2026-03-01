@@ -19,10 +19,9 @@
     <div id="landing-page">
       <div class="hero-title">&#x1F4D0; Toán Học Trực Quan</div>
       <div class="hero-sub">Chọn bài học để bắt đầu</div>
-     <!-- ================== LESSON CARD ================== -->
       <div class="lesson-cards">
   <!-- BÀI 1 -->
-  <div class="lesson-card" onclick="location.href='lessons/bai1.html'">
+  <div class="lesson-card" onclick="openLesson(2)">
     <div class="card-icon">&#x1F4CA;</div>
     <div class="card-title">
       Bài 1: Tính diện tích của hình phẳng
@@ -35,7 +34,7 @@
   </div>
 
   <!-- BÀI 2 -->
-  <div class="lesson-card" onclick="location.href='lessons/bai2.html'">
+  <div class="lesson-card" onclick="openLesson(1)">
     <div class="card-icon">&#x1F504;</div>
     <div class="card-title">Bài 2: Thể Tích Vật Thể Tròn Xoay</div>
     <div class="card-desc">
@@ -52,7 +51,263 @@
       &#x2190; Quay lại
     </button>
 
-   
+    <!-- ================== LESSON 1 ================== -->
+    <div id="lesson1" class="lesson-page">
+      <div class="container">
+        <div class="sidebar">
+          <h2>&#x1F504; Thể Tích Tròn Xoay</h2>
+          <div class="func-input">
+            <label>f(x) =</label>
+            <input
+              type="text"
+              id="func-input"
+              value="sqrt(x)"
+              spellcheck="false"
+            />
+            <button class="btn" onclick="applyFunction()">OK</button>
+          </div>
+          <div class="slider-group">
+            <label
+              >a = <span class="val" id="val-a">0</span
+              ><input
+                type="range"
+                id="slider-a"
+                min="-5"
+                max="10"
+                step="0.1"
+                value="0"
+            /></label>
+          </div>
+          <div class="slider-group">
+            <label
+              >b = <span class="val" id="val-b">4</span
+              ><input
+                type="range"
+                id="slider-b"
+                min="-5"
+                max="16"
+                step="0.1"
+                value="4"
+            /></label>
+          </div>
+          <div class="slider-group">
+            <label
+              >&#x03B1; = <span class="val" id="val-alpha">360&#xB0;</span
+              ><input
+                type="range"
+                id="slider-alpha"
+                min="0"
+                max="360"
+                step="1"
+                value="360"
+            /></label>
+          </div>
+          <div class="slider-group">
+            <label
+              >n = <span class="val" id="val-n">20</span
+              ><input
+                type="range"
+                id="slider-n"
+                min="1"
+                max="100"
+                step="1"
+                value="20"
+            /></label>
+          </div>
+          <div class="slider-group">
+            <label
+              >k = <span class="val" id="val-k">1</span
+              ><input
+                type="range"
+                id="slider-k"
+                min="1"
+                max="20"
+                step="1"
+                value="1"
+            /></label>
+          </div>
+          <div class="btn-row">
+            <button class="btn" id="btn-play-alpha" onclick="togglePlayAlpha()">
+              &#x25B6; Quay &#x03B1;
+            </button>
+            <button class="btn" id="btn-play-n" onclick="togglePlayN()">
+              &#x25B6; Tăng n
+            </button>
+            <button class="btn" onclick="resetView()">&#x21BA; Reset</button>
+          </div>
+          <div class="info-box">
+            <p>
+              <b>Thể tích vật thể (V)</b> =
+              <span id="exact-vol" style="color: #4fc3f7">0</span>
+            </p>
+            <p>
+              <b>Tổng thể tích n trụ (S&#x2099;)</b> =
+              <span id="approx-vol" style="color: #ffd54f">0</span>
+            </p>
+            <p>
+              <b>Sai số |V - S&#x2099;|</b> =
+              <span id="error-vol" style="color: #ef5350">0</span>
+            </p>
+          </div>
+          <div class="disk-info" id="disk-info">
+            Lát cắt <span>k=1</span>: x = 0, r = 0, &#x0394;V = 0
+          </div>
+          <div class="formula">
+            V = &#x222B;<sub>a</sub><sup>b</sup> &#x03C0; [f(x)]&#xB2; dx
+          </div>
+          <div class="note">
+            &#x1F4CC; Khi <b>n càng lớn</b> thì tổng S&#x2099;
+            <b>càng gần</b> với thể tích vật thể V.<br />S&#x2099; &#x2192; V
+            khi n &#x2192; &#x221E;
+          </div>
+          <div class="help">
+            &#x1F5B1; Chuột trái: Xoay | Chuột phải: Di chuyển<br />&#x1F504;
+            Cuộn: Phóng to/nhỏ | Shift+Kéo: Dịch vật thể<br />&#x1F4DD; Hàm:
+            sqrt(x), x^2, sin(x), abs(x), exp(x), x^3-2x+1...
+          </div>
+        </div>
+        <div class="main-view">
+          <div class="top-area">
+            <div id="container3d"></div>
+            <div class="graph-panel">
+              <h3>Đồ thị y = f(x)</h3>
+              <canvas id="graph2d"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================== LESSON 2 ================== -->
+    <div id="lesson2" class="lesson-page">
+      <div class="l2-container">
+        <div class="l2-sidebar">
+          <h2>&#x1F4CA; Tích Phân &amp; Tổng Riemann</h2>
+          <div class="l2-func-input">
+            <label>f(x) =</label>
+            <input
+              type="text"
+              id="l2-func-input"
+              value="x^2 - 2x + 3"
+              spellcheck="false"
+            />
+            <button class="l2-btn" onclick="L2.applyFunction()">OK</button>
+          </div>
+          <div class="l2-slider">
+            <label
+              >a = <span class="l2-val" id="l2-val-a">-1</span
+              ><input
+                type="range"
+                id="l2-slider-a"
+                min="-10"
+                max="10"
+                step="0.1"
+                value="-1"
+            /></label>
+          </div>
+          <div class="l2-slider">
+            <label
+              >b = <span class="l2-val" id="l2-val-b">9</span
+              ><input
+                type="range"
+                id="l2-slider-b"
+                min="-10"
+                max="10"
+                step="0.1"
+                value="9"
+            /></label>
+          </div>
+          <div class="l2-slider">
+            <label
+              >n = <span class="l2-val" id="l2-val-n">50</span
+              ><input
+                type="range"
+                id="l2-slider-n"
+                min="1"
+                max="200"
+                step="1"
+                value="50"
+            /></label>
+          </div>
+          <div class="btn-row">
+            <button
+              class="l2-btn"
+              id="l2-btn-left"
+              onclick="L2.setMethod('left')"
+              style="background: #6a1b9a"
+            >
+              &#x25C0; Trái
+            </button>
+            <button
+              class="l2-btn"
+              id="l2-btn-right"
+              onclick="L2.setMethod('right')"
+            >
+              Phải &#x25B6;
+            </button>
+            <button
+              class="l2-btn"
+              id="l2-btn-mid"
+              onclick="L2.setMethod('mid')"
+            >
+              &#x25AE; Giữa
+            </button>
+            <button
+              class="l2-btn"
+              id="l2-btn-trap"
+              onclick="L2.setMethod('trap')"
+            >
+              &#x23E2; Hình thang
+            </button>
+          </div>
+          <div class="btn-row">
+            <button class="l2-btn" id="l2-btn-play" onclick="L2.togglePlay()">
+              &#x25B6; Tăng n
+            </button>
+            <button class="l2-btn" onclick="L2.resetView()">
+              &#x21BA; Reset
+            </button>
+          </div>
+          <div class="l2-info">
+            <p>
+              <b>Tích phân chính xác (I)</b> =
+              <span id="l2-exact" style="color: #ce93d8">0</span>
+            </p>
+            <p>
+              <b>Tổng Riemann (S&#x2099;)</b> =
+              <span id="l2-approx" style="color: #ffd54f">0</span>
+            </p>
+            <p>
+              <b>Sai số |I - S&#x2099;|</b> =
+              <span id="l2-error" style="color: #ef5350">0</span>
+            </p>
+          </div>
+          <div class="l2-formula">
+            I = &#x222B;<sub>a</sub><sup>b</sup> f(x) dx
+          </div>
+          <div style="font-size: 12px; color: #aaa; margin: 2px 0">
+            Diện tích các hình chữ nhật:
+          </div>
+          <div class="l2-rect-list" id="l2-rect-list"></div>
+          <div class="l2-note">
+            &#x1F4CC; Khi <b>n &#x2192; &#x221E;</b>, tổng Riemann S&#x2099;
+            <b>hội tụ</b> về tích phân I.<br />Phương pháp: Trái, Phải, Giữa,
+            Hình thang.
+          </div>
+          <div class="l2-help">
+            &#x1F4DD; Hàm: x^2, x^3, sin(x), cos(x), tan(x), sqrt(x), abs(x),
+            exp(x), ln(x), log(x), asin(x), acos(x), atan(x), sinh(x), cosh(x),
+            tanh(x), floor(x), ceil(x), sign(x), cbrt(x), sec(x), csc(x),
+            cot(x), pi, e...<br />&#x1F4DD; Đa thức: 3x^4-2x^3+x^2-5x+7<br />&#x1F4DD;
+            Nhân ẩn: 2x, 3sin(x), 2(x+1)...
+          </div>
+        </div>
+        <div class="l2-main">
+          <canvas id="l2-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
     <!-- ================== SCRIPTS ================== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
