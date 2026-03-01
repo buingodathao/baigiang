@@ -1506,3 +1506,12 @@ ctx.scale(dpr, dpr);
         if (currentLesson === 1) L1.onResize();
         else if (currentLesson === 2 && L2.initialized) L2.draw();
       });
+// ================= NAVIGATION =================
+function openLesson(n) {
+  if (n === 1) {
+    window.location.href = "lessons/bai1.html";
+  }
+  if (n === 2) {
+    window.location.href = "lessons/bai2.html";
+  }
+}
