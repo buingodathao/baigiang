@@ -138,6 +138,14 @@
       </div>
     </div>
 <!-- script -->
-<script src="../script1.js"></script>
+<script src="../script.js"></script>
+ <script>
+  window.addEventListener("DOMContentLoaded", function () {
+    if (typeof L1 !== "undefined") {
+      currentLesson = 1;
+      L1.init();
+    }
+  });
+</script> 
 </body>
 </html>
