@@ -37,9 +37,9 @@ body{
   height:520px;
 }
 
-#riemannCanvas{
+#areaCanvas{
   width:100%;
-  max-width:800px;
+  max-width:900px;
   height:500px;
   border:1px solid #ccc;
 }
