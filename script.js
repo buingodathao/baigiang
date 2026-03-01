@@ -111,32 +111,35 @@
        ===================================================================== */
       var currentLesson = 0;
 
-      function openLesson(num) {
-        document.getElementById("landing-page").style.display = "none";
-        document.getElementById("back-btn").style.display = "block";
-        if (num === 1) {
-          document.getElementById("lesson1").classList.add("active");
-          document.getElementById("lesson2").classList.remove("active");
-          if (!L1.initialized) {
-            L1.init();
-          } else {
-            setTimeout(function () {
-              L1.onResize();
-            }, 50);
-          }
-        } else {
-          document.getElementById("lesson2").classList.add("active");
-          document.getElementById("lesson1").classList.remove("active");
-          if (!L2.initialized) {
-            L2.init();
-          } else {
-            setTimeout(function () {
-              L2.draw();
-            }, 50);
-          }
-        }
-        currentLesson = num;
-      }
+     function openLesson(num) {
+  document.getElementById("landing-page").style.display = "none";
+  document.getElementById("back-btn").style.display = "block";
+
+  // 🔥 tắt tất cả bài
+  document.querySelectorAll(".lesson").forEach(el => {
+    el.classList.remove("active");
+  });
+
+  // 🔥 bật bài được chọn
+  const lessonEl = document.getElementById("lesson" + num);
+  if (lessonEl) lessonEl.classList.add("active");
+
+  // 🔥 auto init nếu có module
+  const moduleName = "L" + num;
+  if (window[moduleName]) {
+    const mod = window[moduleName];
+
+    if (!mod.initialized && mod.init) {
+      mod.init();
+    } else if (mod.onResize) {
+      setTimeout(() => mod.onResize(), 50);
+    } else if (mod.draw) {
+      setTimeout(() => mod.draw(), 50);
+    }
+  }
+
+  currentLesson = num;
+}
 
       function goHome() {
         document.getElementById("landing-page").style.display = "flex";
