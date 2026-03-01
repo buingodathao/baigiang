@@ -74,7 +74,21 @@
         position: relative;
         overflow: hidden;
       }
-     
+      .lesson-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        border-radius: 16px 16px 0 0;
+      }
+      .lesson-card:nth-child(1)::before {
+        background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+      }
+      .lesson-card:nth-child(2)::before {
+        background: linear-gradient(90deg, #ab47bc, #e040fb);
+      }
       .lesson-card:hover {
         transform: translateY(-6px);
         box-shadow: 0 12px 40px rgba(79, 195, 247, 0.15);
@@ -95,6 +109,23 @@
         color: #aab;
         line-height: 1.6;
       }
+      .lesson-card .card-tag {
+        display: inline-block;
+        margin-top: 14px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .lesson-card:nth-child(1) .card-tag {
+        background: rgba(79, 195, 247, 0.15);
+        color: #4fc3f7;
+      }
+      .lesson-card:nth-child(2) .card-tag {
+        background: rgba(171, 71, 188, 0.15);
+        color: #ce93d8;
+      }
+
       .back-btn {
         position: fixed;
         top: 12px;
@@ -123,31 +154,6 @@
       .lesson-page.active {
         display: block;
       }
-      /* ===== ORDER (đảo thứ tự hiển thị) ===== */
-.lesson1 { order: 2; }
-.lesson2 { order: 1; }
-
-/* ===== MÀU RIÊNG TỪNG BÀI ===== */
-
-/* Thanh trên card */
-.lesson1::before {
-  background: linear-gradient(90deg, #4fc3f7, #29b6f6);
-}
-
-.lesson2::before {
-  background: linear-gradient(90deg, #ab47bc, #e040fb);
-}
-
-/* Tag màu */
-.lesson1 .card-tag {
-  background: rgba(79, 195, 247, 0.15);
-  color: #4fc3f7;
-}
-
-.lesson2 .card-tag {
-  background: rgba(171, 71, 188, 0.15);
-  color: #ce93d8;
-}
 
       /* ============ LESSON 1 ============ */
       #lesson1 {
@@ -719,7 +725,7 @@
       <div class="hero-sub">Chọn bài học để bắt đầu</div>
       <div class="lesson-cards">
   <!-- BÀI 1 -->
-  <div class="lesson-card lesson1" onclick="openLesson(1)">
+  <div class="lesson-card" onclick="openLesson(2)">
     <div class="card-icon">&#x1F4CA;</div>
     <div class="card-title">
       Bài 1: Tính diện tích của hình phẳng
@@ -732,7 +738,7 @@
   </div>
 
   <!-- BÀI 2 -->
-  <div class="lesson-card lesson2" onclick="openLesson(2)">
+  <div class="lesson-card" onclick="openLesson(1)">
     <div class="card-icon">&#x1F504;</div>
     <div class="card-title">Bài 2: Thể Tích Vật Thể Tròn Xoay</div>
     <div class="card-desc">
