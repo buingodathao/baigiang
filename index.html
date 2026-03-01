@@ -2,52 +2,123 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Ứng dụng của tích phân - GeoGebra</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ứng dụng của tích phân – Mô phỏng GeoGebra</title>
 
-<!-- GeoGebra -->
 <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
 <style>
   body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    background: #f5f6fa;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6fb;
+    color: #2c3e50;
   }
 
   header {
-    background: #2c3e50;
+    background: linear-gradient(135deg,#1e3c72,#2a5298);
     color: white;
-    padding: 16px;
+    padding: 18px 10px;
     text-align: center;
-    font-size: 22px;
-    font-weight: bold;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 26px;
+  }
+
+  header p {
+    margin: 6px 0 0;
+    opacity: 0.9;
+  }
+
+  /* NAV */
+  nav {
+    background: white;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  nav button {
+    margin: 6px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #2a5298;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  nav button:hover {
+    background: #1e3c72;
   }
 
   .container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
-    padding: 20px;
+    padding: 22px;
   }
 
   .lesson {
     background: white;
-    margin-bottom: 28px;
-    padding: 18px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    margin-bottom: 32px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   }
 
   .lesson h2 {
     margin-top: 0;
-    color: #2c3e50;
+  }
+
+  .ggb-wrapper {
+    position: relative;
   }
 
   .ggb-box {
     width: 100%;
-    min-height: 500px;
+    min-height: 520px;
   }
 
-  @media (max-width: 768px) {
+  /* loading */
+  .loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.85);
+    font-weight: bold;
+  }
+
+  /* fullscreen button */
+  .fullscreen-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #27ae60;
+    color: white;
+    cursor: pointer;
+  }
+
+  .fullscreen-btn:hover {
+    background: #1e874b;
+  }
+
+  footer {
+    text-align: center;
+    padding: 18px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  @media (max-width:768px) {
     .ggb-box {
       min-height: 420px;
     }
@@ -58,70 +129,106 @@
 <body>
 
 <header>
-ỨNG DỤNG CỦA TÍCH PHÂN – MÔ PHỎNG GEOGEBRA
+  <h1>ỨNG DỤNG CỦA TÍCH PHÂN</h1>
+  <p>Mô phỏng trực quan bằng GeoGebra</p>
 </header>
+
+<nav>
+  <button onclick="scrollToId('bai1')">Bài 1</button>
+  <button onclick="scrollToId('demo')">Demo</button>
+  <button onclick="scrollToId('bai2')">Bài 2</button>
+</nav>
 
 <div class="container">
 
-  <!-- ================= BÀI 1 ================= -->
-  <div class="lesson">
+  <!-- ===== BÀI 1 ===== -->
+  <section id="bai1" class="lesson">
     <h2>Bài 1. Diện tích hình phẳng</h2>
-    <div id="ggb1" class="ggb-box"></div>
-  </div>
+    <div class="ggb-wrapper">
+      <div id="ggb1" class="ggb-box"></div>
+      <div id="load1" class="loading">⏳ Đang tải mô phỏng…</div>
+    </div>
+    <button class="fullscreen-btn" onclick="fullScreen('ggb1')">⛶ Toàn màn hình</button>
+  </section>
 
-  <!-- ================= DEMO (VỊ TRÍ SỐ 2) ================= -->
-  <div class="lesson">
+  <!-- ===== DEMO (VỊ TRÍ 2) ===== -->
+  <section id="demo" class="lesson">
     <h2>Demo. Diện tích hình phẳng</h2>
-    <div id="ggbDemo" class="ggb-box"></div>
-  </div>
+    <div class="ggb-wrapper">
+      <div id="ggbDemo" class="ggb-box"></div>
+      <div id="loadDemo" class="loading">⏳ Đang tải mô phỏng…</div>
+    </div>
+    <button class="fullscreen-btn" onclick="fullScreen('ggbDemo')">⛶ Toàn màn hình</button>
+  </section>
 
-  <!-- ================= BÀI 2 ================= -->
-  <div class="lesson">
+  <!-- ===== BÀI 2 ===== -->
+  <section id="bai2" class="lesson">
     <h2>Bài 2. Thể tích khối tròn xoay</h2>
-    <div id="ggb2" class="ggb-box"></div>
-  </div>
+    <div class="ggb-wrapper">
+      <div id="ggb2" class="ggb-box"></div>
+      <div id="load2" class="loading">⏳ Đang tải mô phỏng…</div>
+    </div>
+    <button class="fullscreen-btn" onclick="fullScreen('ggb2')">⛶ Toàn màn hình</button>
+  </section>
 
 </div>
 
+<footer>
+  © Mô phỏng phục vụ dạy học Toán THPT chuyên
+</footer>
+
 <script>
-/* ===== BÀI 1 ===== */
+function scrollToId(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+function fullScreen(id){
+  const el = document.getElementById(id);
+  if (el.requestFullscreen) el.requestFullscreen();
+}
+
+/* ===== APPLETS ===== */
+
 var applet1 = new GGBApplet({
-  appName: "classic",
-  width: "100%",
-  height: 500,
-  showToolBar: false,
-  showAlgebraInput: false,
-  showMenuBar: false,
-  filename: "ggb/Bai1_DienTichHinhPhang.ggb"
+  appName:"classic",
+  width:"100%",
+  height:520,
+  showToolBar:false,
+  showAlgebraInput:false,
+  showMenuBar:false,
+  filename:"ggb/Bai1_DienTichHinhPhang.ggb"
 }, true);
 
-/* ===== DEMO (SỐ 2) ===== */
 var appletDemo = new GGBApplet({
-  appName: "classic",
-  width: "100%",
-  height: 500,
-  showToolBar: false,
-  showAlgebraInput: false,
-  showMenuBar: false,
-  filename: "ggb/DemoDienTichHinhPhang.ggb"
+  appName:"classic",
+  width:"100%",
+  height:520,
+  showToolBar:false,
+  showAlgebraInput:false,
+  showMenuBar:false,
+  filename:"ggb/DemoDienTichHinhPhang.ggb"
 }, true);
 
-/* ===== BÀI 2 ===== */
 var applet2 = new GGBApplet({
-  appName: "classic",
-  width: "100%",
-  height: 500,
-  showToolBar: false,
-  showAlgebraInput: false,
-  showMenuBar: false,
-  filename: "ggb/Bai2_TheTichKhoiTronXoay.ggb"
+  appName:"classic",
+  width:"100%",
+  height:520,
+  showToolBar:false,
+  showAlgebraInput:false,
+  showMenuBar:false,
+  filename:"ggb/Bai2_TheTichKhoiTronXoay.ggb"
 }, true);
 
-/* inject khi load */
-window.addEventListener("load", function () {
+window.addEventListener("load", function(){
   applet1.inject("ggb1");
   appletDemo.inject("ggbDemo");
   applet2.inject("ggb2");
+
+  setTimeout(()=>{
+    document.getElementById("load1").style.display="none";
+    document.getElementById("loadDemo").style.display="none";
+    document.getElementById("load2").style.display="none";
+  },2000);
 });
 </script>
 
