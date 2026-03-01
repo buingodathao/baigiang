@@ -750,14 +750,7 @@
   </div>
 </div>   
     </div>
-<div class="lesson-card" onclick="openLesson(3)">
-  <div class="card-icon">🏺</div>
-  <div class="card-title">Bài 3: Thiết kế Bình hoa Nghệ thuật</div>
-  <div class="card-desc">
-    Mô hình hóa đường cong bình hoa bằng hàm số và tính toán thể tích vật liệu bằng tích phân.
-  </div>
-  <span class="card-tag">Ứng dụng • 3D</span>
-</div>
+
     <button class="back-btn" id="back-btn" onclick="goHome()">
       &#x2190; Quay lại
     </button>
@@ -1137,58 +1130,32 @@
       var currentLesson = 0;
 
       function openLesson(num) {
-  document.getElementById("landing-page").style.display = "none";
-  document.getElementById("back-btn").style.display = "block";
-  document.querySelectorAll(".lesson-page").forEach((p) => p.classList.remove("active"));
-
-  if (num === 1) {
-    document.getElementById("lesson1").classList.add("active");
-    if (!L1.initialized) L1.init();
-  } else if (num === 2) {
-    document.getElementById("lesson2").classList.add("active");
-    if (!L2.initialized) L2.init();
-  } else if (num === 3) {
-    document.getElementById("lesson3").classList.add("active");
-    updateVase(); // Tính toán lần đầu khi mở bài
-  }
-  currentLesson = num;
-}
-// --- LOGIC CHO BÀI 3: THIẾT KẾ BÌNH HOA ---
-function updateVase() {
-    const funcStr = document.getElementById("l3-func").value;
-    const a = parseFloat(document.getElementById("l3-a").value);
-    const b = parseFloat(document.getElementById("l3-b").value);
-    
-    try {
-        // Sử dụng thư viện math.js (đã có sẵn trong file của bạn) để giải mã hàm số
-        const f = (x) => math.evaluate(funcStr, { x: x });
-        
-        // Tính tích phân số học bằng phương pháp hình thang (200 bước chia)
-        let n = 200;
-        let dx = (b - a) / n;
-        let sum = 0;
-
-        // Công thức: V = pi * tích phân [f(x)^2] dx
-        for (let i = 0; i < n; i++) {
-            let x1 = a + i * dx;
-            let x2 = a + (i + 1) * dx;
-            let y1 = Math.pow(f(x1), 2);
-            let y2 = Math.pow(f(x2), 2);
-            sum += (y1 + y2) * dx / 2;
+        document.getElementById("landing-page").style.display = "none";
+        document.getElementById("back-btn").style.display = "block";
+        if (num === 1) {
+          document.getElementById("lesson1").classList.add("active");
+          document.getElementById("lesson2").classList.remove("active");
+          if (!L1.initialized) {
+            L1.init();
+          } else {
+            setTimeout(function () {
+              L1.onResize();
+            }, 50);
+          }
+        } else {
+          document.getElementById("lesson2").classList.add("active");
+          document.getElementById("lesson1").classList.remove("active");
+          if (!L2.initialized) {
+            L2.init();
+          } else {
+            setTimeout(function () {
+              L2.draw();
+            }, 50);
+          }
         }
-        
-        const volume = Math.PI * sum;
-        
-        // Hiển thị kết quả
-        document.getElementById("l3-vol").textContent = isFinite(volume) 
-            ? volume.toFixed(3) 
-            : "Lỗi giá trị";
-            
-    } catch (e) {
-        document.getElementById("l3-vol").textContent = "Hàm không hợp lệ";
-        console.error("Lỗi tính toán:", e);
-    }
-}
+        currentLesson = num;
+      }
+
       function goHome() {
         document.getElementById("landing-page").style.display = "flex";
         document.getElementById("back-btn").style.display = "none";
@@ -2578,44 +2545,5 @@ function updateVase() {
         else if (currentLesson === 2 && L2.initialized) L2.draw();
       });
     </script>
-  <div id="lesson3" class="lesson-page">
-  <div class="container">
-    <div class="sidebar" style="border-right: 2px solid #ff7043;">
-      <h2 style="color: #ff7043;">🏺 Thiết kế Bình hoa</h2>
-      <p style="font-size: 0.9em; margin-bottom: 15px;">Phác thảo đường cong viền bình bằng hàm số \(f(x)\):</p>
-      
-      <div class="func-input">
-        <label>Hàm viền \(f(x) =\)</label>
-        <input type="text" id="l3-func" value="0.5*sin(x) + 2" spellcheck="false" />
-        <div style="display:flex; gap:5px; margin-top:5px;">
-          <input type="number" id="l3-a" value="0" step="0.1" style="width:45%" title="Cận dưới (đáy)"/>
-          <input type="number" id="l3-b" value="6.28" step="0.1" style="width:45%" title="Cận trên (miệng)"/>
-        </div>
-        <button class="btn" style="background: #ff7043; width:100%; margin-top:10px;" onclick="updateVase()">Cập nhật mô hình</button>
-      </div>
-
-      <div class="info-box" style="border-left: 4px solid #ff7043; background: rgba(255,112,67,0.1);">
-        <p><b>Công thức tính:</b></p>
-        <div class="formula">V = π ∫₀ʰ [f(x)]² dx</div>
-        <p><b>Kết quả thể tích:</b> <span id="l3-vol" style="color: #ff7043; font-weight:bold;">0</span> (đvtt)</p>
-      </div>
-
-      <div class="note">
-        💡 <b>Gợi ý:</b> Thử hàm <code>0.3*x + 1.5</code> để tạo bình hình nón cụt, hoặc <code>0.5*sin(x) + 2</code> cho dáng bình uốn lượn.
-      </div>
-
-      <div class="btn-row">
-        <button class="btn" onclick="goHome()">Trở về</button>
-      </div>
-    </div>
-    
-    <div class="main-view">
-      <div id="l3-canvas-container" style="flex:1; width:100%; background:#0a0a1a; position:relative;">
-          <iframe id="l3-geogebra" src="https://www.geogebra.org/material/iframe/id/vgy7y9zy?smb=false&stb=false&stbh=false&ai=false&asb=false&sri=false&rc=false&ld=false&sdz=false&ctl=false" 
-          width="100%" height="100%" style="border:0;"></iframe>
-      </div>
-    </div>
-  </div>
-</div>
   </body>
 </html>
