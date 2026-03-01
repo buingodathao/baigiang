@@ -1197,6 +1197,8 @@
         },
 
         draw: function () {
+               // ⭐ thêm guard tránh crash
+  if (typeof this.f !== "function") return;
           var c = this.canvas;
           var rect = c.parentElement.getBoundingClientRect();
           var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1208,7 +1210,8 @@
           c.style.width = W + "px";
           c.style.height = H + "px";
           var ctx = this.ctx;
-          ctx.scale(dpr, dpr);
+ctx.setTransform(1, 0, 0, 1, 0, 0); // ⭐ reset
+ctx.scale(dpr, dpr);
 
           var a = this.params.a,
             b = this.params.b,
