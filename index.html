@@ -2,235 +2,39 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ứng dụng của tích phân – Mô phỏng GeoGebra</title>
+<title>Ứng dụng của tích phân</title>
 
-<script src="https://www.geogebra.org/apps/deployggb.js"></script>
-
-<style>
-  body {
-    margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #f4f6fb;
-    color: #2c3e50;
-  }
-
-  header {
-    background: linear-gradient(135deg,#1e3c72,#2a5298);
-    color: white;
-    padding: 18px 10px;
-    text-align: center;
-  }
-
-  header h1 {
-    margin: 0;
-    font-size: 26px;
-  }
-
-  header p {
-    margin: 6px 0 0;
-    opacity: 0.9;
-  }
-
-  /* NAV */
-  nav {
-    background: white;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  nav button {
-    margin: 6px;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    background: #2a5298;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-  }
-
-  nav button:hover {
-    background: #1e3c72;
-  }
-
-  .container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 22px;
-  }
-
-  .lesson {
-    background: white;
-    margin-bottom: 32px;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  }
-
-  .lesson h2 {
-    margin-top: 0;
-  }
-
-  .ggb-wrapper {
-    position: relative;
-  }
-
-  .ggb-box {
-    width: 100%;
-    min-height: 520px;
-  }
-
-  /* loading */
-  .loading {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.85);
-    font-weight: bold;
-  }
-
-  /* fullscreen button */
-  .fullscreen-btn {
-    margin-top: 10px;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    background: #27ae60;
-    color: white;
-    cursor: pointer;
-  }
-
-  .fullscreen-btn:hover {
-    background: #1e874b;
-  }
-
-  footer {
-    text-align: center;
-    padding: 18px;
-    color: #666;
-    font-size: 14px;
-  }
-
-  @media (max-width:768px) {
-    .ggb-box {
-      min-height: 420px;
-    }
-  }
-</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<header>
+<div id="landing-page" class="page active">
   <h1>ỨNG DỤNG CỦA TÍCH PHÂN</h1>
-  <p>Mô phỏng trực quan bằng GeoGebra</p>
-</header>
+  <p>Chọn bài học để khám phá mô phỏng trực quan</p>
 
-<nav>
-  <button onclick="scrollToId('bai1')">Bài 1</button>
-  <button onclick="scrollToId('demo')">Demo</button>
-  <button onclick="scrollToId('bai2')">Bài 2</button>
-</nav>
-
-<div class="container">
-
-  <!-- ===== BÀI 1 ===== -->
-  <section id="bai1" class="lesson">
-    <h2>Bài 1. Diện tích hình phẳng</h2>
-    <div class="ggb-wrapper">
-      <div id="ggb1" class="ggb-box"></div>
-      <div id="load1" class="loading">⏳ Đang tải mô phỏng…</div>
-    </div>
-    <button class="fullscreen-btn" onclick="fullScreen('ggb1')">⛶ Toàn màn hình</button>
-  </section>
-
-  <!-- ===== DEMO (VỊ TRÍ 2) ===== -->
-  <section id="demo" class="lesson">
-    <h2>Demo. Diện tích hình phẳng</h2>
-    <div class="ggb-wrapper">
-      <div id="ggbDemo" class="ggb-box"></div>
-      <div id="loadDemo" class="loading">⏳ Đang tải mô phỏng…</div>
-    </div>
-    <button class="fullscreen-btn" onclick="fullScreen('ggbDemo')">⛶ Toàn màn hình</button>
-  </section>
-
-  <!-- ===== BÀI 2 ===== -->
-  <section id="bai2" class="lesson">
-    <h2>Bài 2. Thể tích khối tròn xoay</h2>
-    <div class="ggb-wrapper">
-      <div id="ggb2" class="ggb-box"></div>
-      <div id="load2" class="loading">⏳ Đang tải mô phỏng…</div>
-    </div>
-    <button class="fullscreen-btn" onclick="fullScreen('ggb2')">⛶ Toàn màn hình</button>
-  </section>
-
+  <div class="menu">
+    <button onclick="openLesson(1)">Bài 1 – Diện tích hình phẳng</button>
+    <button onclick="openLesson(2)">Bài 2 – Thể tích khối tròn xoay</button>
+  </div>
 </div>
 
-<footer>
-  © Mô phỏng phục vụ dạy học Toán THPT chuyên
-</footer>
+<div id="lesson1" class="page">
+  <button class="back-btn" onclick="goHome()">← Quay lại</button>
+  <h2>Bài 1 – Mô phỏng 3D</h2>
+  <div id="three-container"></div>
+</div>
 
-<script>
-function scrollToId(id){
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
-}
+<div id="lesson2" class="page">
+  <button class="back-btn" onclick="goHome()">← Quay lại</button>
+  <h2>Bài 2 – Tổng Riemann</h2>
+  <canvas id="riemannCanvas"></canvas>
+</div>
 
-function fullScreen(id){
-  const el = document.getElementById(id);
-  if (el.requestFullscreen) el.requestFullscreen();
-}
-
-/* ===== APPLETS ===== */
-
-var applet1 = new GGBApplet({
-  appName:"classic",
-  width:"100%",
-  height:520,
-  showToolBar:false,
-  showAlgebraInput:false,
-  showMenuBar:false,
-  filename:"ggb/Bai1_DienTichHinhPhang.ggb"
-}, true);
-
-var appletDemo = new GGBApplet({
-  appName:"classic",
-  width:"100%",
-  height:520,
-  showToolBar:false,
-  showAlgebraInput:false,
-  showMenuBar:false,
-  filename:"ggb/DemoDienTichHinhPhang.ggb"
-}, true);
-
-var applet2 = new GGBApplet({
-  appName:"classic",
-  width:"100%",
-  height:520,
-  showToolBar:false,
-  showAlgebraInput:false,
-  showMenuBar:false,
-  filename:"ggb/Bai2_TheTichKhoiTronXoay.ggb"
-}, true);
-
-window.addEventListener("load", function(){
-  applet1.inject("ggb1");
-  appletDemo.inject("ggbDemo");
-  applet2.inject("ggb2");
-
-  setTimeout(()=>{
-    document.getElementById("load1").style.display="none";
-    document.getElementById("loadDemo").style.display="none";
-    document.getElementById("load2").style.display="none";
-  },2000);
-});
-</script>
+<script src="js/main.js"></script>
+<script src="js/lesson1.js"></script>
+<script src="js/lesson2.js"></script>
 
 </body>
 </html>
