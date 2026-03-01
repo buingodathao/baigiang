@@ -1,0 +1,703 @@
+ * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Nunito", "Segoe UI", Arial, sans-serif;
+        background: #0a0a1a;
+        color: #e0e0e0;
+        min-height: 100vh;
+      }
+
+      /* ============ LANDING PAGE ============ */
+      #landing-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          #0a0a1a 0%,
+          #1a1a3e 50%,
+          #0a0a1a 100%
+        );
+        padding: 20px;
+      }
+      #landing-page .hero-title {
+        font-size: 42px;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #4fc3f7, #ab47bc, #ff7043);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      #landing-page .hero-sub {
+        font-size: 18px;
+        color: #aaa;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .lesson-cards {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 900px;
+      }
+      .lesson-card {
+        background: linear-gradient(145deg, #16213e, #1a2744);
+        border: 2px solid #0f3460;
+        border-radius: 16px;
+        padding: 30px 28px;
+        width: 380px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .lesson-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        border-radius: 16px 16px 0 0;
+      }
+      .lesson-card:nth-child(1)::before {
+        background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+      }
+      .lesson-card:nth-child(2)::before {
+        background: linear-gradient(90deg, #ab47bc, #e040fb);
+      }
+      .lesson-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 40px rgba(79, 195, 247, 0.15);
+        border-color: #4fc3f7;
+      }
+      .lesson-card .card-icon {
+        font-size: 48px;
+        margin-bottom: 14px;
+      }
+      .lesson-card .card-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #fff;
+      }
+      .lesson-card .card-desc {
+        font-size: 14px;
+        color: #aab;
+        line-height: 1.6;
+      }
+      .lesson-card .card-tag {
+        display: inline-block;
+        margin-top: 14px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .lesson-card:nth-child(1) .card-tag {
+        background: rgba(79, 195, 247, 0.15);
+        color: #4fc3f7;
+      }
+      .lesson-card:nth-child(2) .card-tag {
+        background: rgba(171, 71, 188, 0.15);
+        color: #ce93d8;
+      }
+
+      .back-btn {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1000;
+        padding: 8px 16px;
+        background: rgba(15, 52, 96, 0.9);
+        border: 1px solid #4fc3f7;
+        color: #4fc3f7;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        backdrop-filter: blur(8px);
+        transition: all 0.2s;
+        display: none;
+      }
+      .back-btn:hover {
+        background: #4fc3f7;
+        color: #0a0a1a;
+      }
+
+      .lesson-page {
+        display: none;
+      }
+      .lesson-page.active {
+        display: block;
+      }
+
+      /* ============ LESSON 1 ============ */
+      #lesson1 {
+        height: 100vh;
+        overflow: hidden;
+      }
+      #lesson1 .container {
+        display: flex;
+        height: 100vh;
+      }
+      .sidebar {
+        width: 300px;
+        min-width: 300px;
+        padding: 12px;
+        background: #16213e;
+        overflow-y: auto;
+        border-right: 2px solid #0f3460;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .sidebar h2 {
+        text-align: center;
+        color: #4fc3f7;
+        font-size: 17px;
+        margin-bottom: 4px;
+      }
+      .main-view {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .top-area {
+        flex: 1;
+        display: flex;
+      }
+      #container3d {
+        flex: 1;
+        position: relative;
+        background: #f0f0f0;
+        min-height: 0;
+      }
+      .graph-panel {
+        width: 380px;
+        min-width: 320px;
+        background: #16213e;
+        border-left: 2px solid #0f3460;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+      }
+      .graph-panel h3 {
+        color: #4fc3f7;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+      #graph2d {
+        background: #fff;
+        border-radius: 6px;
+        width: 100%;
+        flex: 1;
+      }
+      .slider-group {
+        margin: 2px 0;
+      }
+      .slider-group label {
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        gap: 6px;
+      }
+      .slider-group input[type="range"] {
+        flex: 1;
+        height: 6px;
+        cursor: pointer;
+        accent-color: #4fc3f7;
+      }
+      .val {
+        font-weight: bold;
+        color: #4fc3f7;
+        min-width: 40px;
+        text-align: right;
+      }
+      .info-box {
+        background: #0f3460;
+        padding: 10px;
+        border-radius: 8px;
+        margin: 4px 0;
+      }
+      .info-box p {
+        margin: 3px 0;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .info-box b {
+        color: #4fc3f7;
+      }
+      .formula {
+        text-align: center;
+        font-size: 16px;
+        color: #e8e8e8;
+        margin: 6px 0;
+        background: #0f3460;
+        padding: 8px;
+        border-radius: 6px;
+      }
+      .note {
+        background: #fff9c4;
+        color: #333;
+        padding: 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .func-input {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin: 2px 0;
+      }
+      .func-input label {
+        font-size: 13px;
+        white-space: nowrap;
+      }
+      .func-input input {
+        flex: 1;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid #4fc3f7;
+        background: #0a1628;
+        color: #4fc3f7;
+        font-size: 13px;
+        font-family: monospace;
+      }
+      .btn-row {
+        display: flex;
+        gap: 6px;
+        margin: 4px 0;
+        flex-wrap: wrap;
+      }
+      .btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        color: #fff;
+        background: #0f3460;
+        transition: background 0.2s;
+      }
+      .btn:hover {
+        background: #1a5276;
+      }
+      .btn.active {
+        background: #e74c3c;
+      }
+      .help {
+        font-size: 11px;
+        color: #888;
+        margin-top: 4px;
+        line-height: 1.6;
+      }
+      .disk-info {
+        background: #1b3a5c;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        margin: 2px 0;
+        border-left: 3px solid #ffdd00;
+      }
+      .disk-info span {
+        color: #ffdd00;
+        font-weight: bold;
+      }
+
+      /* ============ LESSON 2 ============ */
+      #lesson2 {
+        height: 100vh;
+        overflow: hidden;
+      }
+      #lesson2 .l2-container {
+        display: flex;
+        height: 100vh;
+      }
+      #lesson2 .l2-sidebar {
+        width: 320px;
+        min-width: 320px;
+        padding: 14px;
+        background: #16213e;
+        overflow-y: auto;
+        border-right: 2px solid #0f3460;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      #lesson2 .l2-sidebar h2 {
+        text-align: center;
+        color: #ce93d8;
+        font-size: 17px;
+        margin-bottom: 4px;
+      }
+      #lesson2 .l2-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        position: relative;
+      }
+      #lesson2 canvas {
+        width: 100%;
+        height: 100%;
+      }
+      #lesson2 .l2-func-input {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin: 2px 0;
+      }
+      #lesson2 .l2-func-input label {
+        font-size: 13px;
+        white-space: nowrap;
+        color: #ce93d8;
+        font-weight: 700;
+      }
+      #lesson2 .l2-func-input input {
+        flex: 1;
+        padding: 5px 8px;
+        border-radius: 4px;
+        border: 1px solid #ce93d8;
+        background: #0a1628;
+        color: #ce93d8;
+        font-size: 13px;
+        font-family: monospace;
+      }
+      #lesson2 .l2-slider {
+        margin: 3px 0;
+      }
+      #lesson2 .l2-slider label {
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        gap: 6px;
+      }
+      #lesson2 .l2-slider input[type="range"] {
+        flex: 1;
+        height: 6px;
+        cursor: pointer;
+        accent-color: #ce93d8;
+      }
+      #lesson2 .l2-val {
+        font-weight: bold;
+        color: #ce93d8;
+        min-width: 40px;
+        text-align: right;
+      }
+      #lesson2 .l2-info {
+        background: #0f3460;
+        padding: 10px;
+        border-radius: 8px;
+        margin: 4px 0;
+      }
+      #lesson2 .l2-info p {
+        margin: 3px 0;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      #lesson2 .l2-info b {
+        color: #ce93d8;
+      }
+      #lesson2 .l2-formula {
+        text-align: center;
+        font-size: 15px;
+        color: #e8e8e8;
+        margin: 6px 0;
+        background: #0f3460;
+        padding: 8px;
+        border-radius: 6px;
+      }
+      #lesson2 .l2-note {
+        background: #f3e5f5;
+        color: #333;
+        padding: 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      #lesson2 .l2-btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        color: #fff;
+        background: #6a1b9a;
+        transition: background 0.2s;
+      }
+      #lesson2 .l2-btn:hover {
+        background: #8e24aa;
+      }
+      #lesson2 .l2-btn.active {
+        background: #e74c3c;
+      }
+      #lesson2 .l2-rect-list {
+        background: #0a1628;
+        border: 1px solid #333;
+        border-radius: 6px;
+        padding: 8px;
+        max-height: 100px;
+        overflow-y: auto;
+        font-size: 11px;
+        font-family: monospace;
+        color: #ce93d8;
+        line-height: 1.5;
+      }
+      .l2-help {
+        font-size: 11px;
+        color: #888;
+        margin-top: 4px;
+        line-height: 1.6;
+      }
+
+      /* ===== TABLET ===== */
+      @media (max-width: 900px) {
+        body {
+          overflow: auto;
+          font-size: 15px;
+        }
+        #lesson1,
+        #lesson2 {
+          height: auto;
+          overflow: auto;
+        }
+        #lesson1 .container,
+        #lesson2 .l2-container {
+          flex-direction: column;
+          height: auto;
+          min-height: 100vh;
+        }
+        .sidebar,
+        #lesson2 .l2-sidebar {
+          width: 100%;
+          min-width: unset;
+          border-right: none;
+          border-bottom: 2px solid #0f3460;
+        }
+        .top-area {
+          flex-direction: column;
+        }
+        #container3d {
+          width: 100%;
+          height: 50vh;
+          min-height: 280px;
+        }
+        .graph-panel {
+          width: 100%;
+          min-width: unset;
+          height: 320px;
+          border-left: none;
+          border-top: 2px solid #0f3460;
+        }
+        #lesson2 .l2-main {
+          min-height: 60vh;
+        }
+        .lesson-cards {
+          flex-direction: column;
+          align-items: center;
+        }
+        .lesson-card {
+          width: 100%;
+          max-width: 400px;
+        }
+        #landing-page .hero-title {
+          font-size: 28px;
+        }
+      }
+
+      /* ===== PHONE ===== */
+      @media (max-width: 480px) {
+        body {
+          font-size: 16px;
+          -webkit-text-size-adjust: 100%;
+        }
+
+        /* Landing page */
+        #landing-page {
+          padding: 16px 10px;
+        }
+        #landing-page .hero-title {
+          font-size: 24px;
+        }
+        #landing-page .hero-sub {
+          font-size: 15px;
+          margin-bottom: 24px;
+        }
+        .lesson-card {
+          padding: 20px 18px;
+        }
+        .lesson-card .card-icon {
+          font-size: 36px;
+          margin-bottom: 10px;
+        }
+        .lesson-card .card-title {
+          font-size: 17px;
+        }
+        .lesson-card .card-desc {
+          font-size: 13px;
+        }
+
+        /* Back button */
+        .back-btn {
+          padding: 10px 18px;
+          font-size: 15px;
+          top: 8px;
+          left: 8px;
+        }
+
+        /* Sidebars */
+        .sidebar,
+        #lesson2 .l2-sidebar {
+          padding: 10px;
+          gap: 8px;
+        }
+        .sidebar h2,
+        #lesson2 .l2-sidebar h2 {
+          font-size: 18px;
+          margin-bottom: 6px;
+        }
+
+        /* Function inputs */
+        .func-input input,
+        #lesson2 .l2-func-input input {
+          font-size: 15px;
+          padding: 8px 10px;
+          min-height: 40px;
+        }
+        .func-input label,
+        #lesson2 .l2-func-input label {
+          font-size: 15px;
+        }
+
+        /* Sliders - bigger touch target */
+        .slider-group label,
+        #lesson2 .l2-slider label {
+          font-size: 14px;
+          gap: 8px;
+          min-height: 36px;
+        }
+        .slider-group input[type="range"],
+        #lesson2 .l2-slider input[type="range"] {
+          height: 10px;
+          min-height: 36px;
+        }
+        .val,
+        #lesson2 .l2-val {
+          font-size: 15px;
+          min-width: 48px;
+        }
+
+        /* Buttons - bigger touch target */
+        .btn,
+        #lesson2 .l2-btn {
+          padding: 10px 14px;
+          font-size: 14px;
+          min-height: 40px;
+          border-radius: 6px;
+        }
+        .btn-row {
+          gap: 8px;
+          margin: 6px 0;
+        }
+
+        /* Info boxes */
+        .info-box,
+        #lesson2 .l2-info {
+          padding: 12px;
+        }
+        .info-box p,
+        #lesson2 .l2-info p {
+          font-size: 14px;
+          margin: 4px 0;
+        }
+        .formula,
+        #lesson2 .l2-formula {
+          font-size: 16px;
+          padding: 10px;
+        }
+
+        /* Disk info */
+        .disk-info {
+          font-size: 13px;
+          padding: 8px 12px;
+        }
+
+        /* Note */
+        .note,
+        #lesson2 .l2-note {
+          font-size: 13px;
+          padding: 10px;
+        }
+
+        /* 3D & graph */
+        #container3d {
+          height: 45vh;
+          min-height: 240px;
+        }
+        .graph-panel {
+          height: 280px;
+          padding: 10px;
+        }
+        .graph-panel h3 {
+          font-size: 15px;
+        }
+
+        /* L2 canvas */
+        #lesson2 .l2-main {
+          min-height: 55vh;
+        }
+
+        /* Rect list */
+        #lesson2 .l2-rect-list {
+          font-size: 12px;
+          padding: 10px;
+          max-height: 80px;
+        }
+
+        /* Help text hidden on phone */
+        .help,
+        .l2-help {
+          display: none;
+        }
+      }
+
+      /* ===== VERY SMALL PHONE ===== */
+      @media (max-width: 360px) {
+        #landing-page .hero-title {
+          font-size: 20px;
+        }
+        .sidebar,
+        #lesson2 .l2-sidebar {
+          padding: 8px;
+        }
+        .func-input input,
+        #lesson2 .l2-func-input input {
+          font-size: 14px;
+          padding: 6px 8px;
+          min-height: 36px;
+        }
+        .btn,
+        #lesson2 .l2-btn {
+          padding: 8px 10px;
+          font-size: 13px;
+          min-height: 36px;
+        }
+        #container3d {
+          height: 40vh;
+          min-height: 200px;
+        }
+        .graph-panel {
+          height: 240px;
+        }
+      }
